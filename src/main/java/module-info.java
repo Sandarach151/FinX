@@ -8,7 +8,6 @@ module com.example.finx {
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
 
     opens com.example.finx to javafx.fxml;
     exports com.example.finx;
