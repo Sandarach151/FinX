@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
+import org.w3c.dom.events.MouseEvent;
 
 import java.io.IOException;
 
@@ -14,13 +14,10 @@ public class LoginController {
     private Button signUpBtn;
 
     @FXML
-    protected void onSignUpBtnClicked() throws IOException {
+    void onSignUpBtnClicked() throws IOException {
         Stage stage = (Stage) signUpBtn.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 335, 600);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+        Application2 app = new Application2();
+        app.start(stage);
     }
 
 }
