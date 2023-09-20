@@ -38,7 +38,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="70.0" prefWidth="290.0" />
+                  <TextField fx:id="usernameText" prefHeight="70.0" prefWidth="290.0" />
                </children>
             </HBox>
             <HBox prefHeight="45.0" prefWidth="335.0" GridPane.rowIndex="2">
@@ -48,12 +48,12 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <PasswordField prefHeight="103.0" prefWidth="200.0" />
+                  <PasswordField fx:id="passwordField" prefHeight="103.0" prefWidth="200.0" />
                </children>
             </HBox>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.rowIndex="3">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="394.0" text="Login">
+                  <Button fx:id="loginBtn" mnemonicParsing="false" onMouseClicked="#onLoginBtnClicked" prefHeight="25.0" prefWidth="394.0" text="Login">
                      <font>
                         <Font size="25.0" />
                      </font>

@@ -1,23 +1,39 @@
 package com.example.finx;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.w3c.dom.events.MouseEvent;
+import javafx.util.Pair;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LoginController {
-    @FXML
-    private Button signUpBtn;
+    public Button loginBtn;
+    public PasswordField passwordField;
+    public TextField usernameText;
+    public Button signUpBtn;
 
-    @FXML
-    void onSignUpBtnClicked() throws IOException {
-        Stage stage = (Stage) signUpBtn.getScene().getWindow();
-        Application2 app = new Application2();
-        app.start(stage);
+    public void onLoginBtnClicked(MouseEvent mouseEvent) {
+        Pair<ArrayList<String>, ArrayList<String>> users = DBHandler.getUsers();
+        ArrayList<String> usernameDB = users.getKey();
+        ArrayList<String> passwordDB = users.getValue();
+        if(usernameDB.indexOf(usernameText.getText())!=-1 && passwordDB.get(usernameDB.indexOf(usernameText.getText())).equals(passwordField.getText())){
+            System.out.println("Login Successful");
+        }
+        else{
+            System.out.println("Login Unsuccessful");
+        }
     }
 
+    public void onSignUpBtnClicked(MouseEvent mouseEvent) throws IOException {
+        Stage stage = (Stage) signUpBtn.getScene().getWindow();
+        SignupApplication app = new SignupApplication();
+        app.start(stage);
+    }
 }
