@@ -1,15 +1,11 @@
-package com.example.finx;
+package com.example.finx.View;
 
+import com.example.finx.LoginApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class ExploreApplication extends javafx.application.Application {
     @Override

@@ -1,4 +1,4 @@
-package com.example.finx;
+package com.example.finx.Others;
 
 import java.io.*;
 import java.net.HttpURLConnection;

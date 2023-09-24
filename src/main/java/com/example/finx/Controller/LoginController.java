@@ -1,17 +1,16 @@
-package com.example.finx;
+package com.example.finx.Controller;
 
-import javafx.fxml.FXML;
+import com.example.finx.Others.DBHandler;
+import com.example.finx.View.ExploreApplication;
+import com.example.finx.SignupApplication;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.Pair;
+import com.example.finx.Model.*;
 
 import java.io.*;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class LoginController {
     public Button loginBtn;
@@ -19,12 +18,14 @@ public class LoginController {
     public TextField usernameText;
     public Button signUpBtn;
 
-    public void onLoginBtnClicked(MouseEvent mouseEvent) {
-        Pair<ArrayList<String>, ArrayList<String>> users = DBHandler.getUsers();
-        ArrayList<String> usernameDB = users.getKey();
-        ArrayList<String> passwordDB = users.getValue();
-        if(usernameDB.indexOf(usernameText.getText())!=-1 && passwordDB.get(usernameDB.indexOf(usernameText.getText())).equals(passwordField.getText())){
+    public void onLoginBtnClicked(MouseEvent mouseEvent) throws IOException {
+        UserDB database = DBHandler.loadUsers();
+        if(database.findUserByUsername(usernameText.getText())!=null && database.findUserByUsername(usernameText.getText()).getPassword().equals(passwordField.getText())){
             System.out.println("Login Successful");
+            DBHandler.setCurrentUser(usernameText.getText());
+            Stage stage = (Stage) usernameText.getScene().getWindow();
+            ExploreApplication app = new ExploreApplication();
+            app.start(stage);
         }
         else{
             System.out.println("Login Unsuccessful");
