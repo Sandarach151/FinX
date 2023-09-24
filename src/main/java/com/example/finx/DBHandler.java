@@ -24,6 +24,21 @@ public class DBHandler {
         return new Pair<>(usernameDB, passwordDB);
     }
 
+    public static ArrayList<Pair<String, String>> getCurrencies(){
+        Scanner sc = null;
+        try {
+            sc = new Scanner(new File(System.getProperty("user.dir")+"/src/main/resources/com/example/finx/currencies.csv"));
+        } catch (FileNotFoundException e) {
+            System.out.println("File not Found!");
+        }
+        ArrayList<Pair<String, String>> currencyDB = new ArrayList<>();
+        while (sc.hasNextLine()){
+            String[] cur = sc.nextLine().split(", ");
+            currencyDB.add(new Pair<>(cur[0], cur[1]));
+        }
+        return currencyDB;
+    }
+
     public static boolean insertUser(String username, String password){
         Pair<ArrayList<String>, ArrayList<String>> users = DBHandler.getUsers();
         ArrayList<String> usernameDB = users.getKey();

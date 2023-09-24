@@ -9,11 +9,16 @@ public class AlphaRequest {
 
     private static final String USER_AGENT = "Mozilla/5.0";
 
+    private static final String[] APIKeys = {"OPRV36UP2D7FZDDZ", "05H3YY29U7DPZFZS", "Z5BEOGD5Y2IT2FL8", "9WWO9X4VCT5TUSMX", "LJE8C7NLRRLEKL8C", "XWFCP6OBQ4IX684C"};
+
+    private static int numCalls = (int) Math.floor(Math.random()*6);
+
     public static void main(String[] args) throws IOException {
         getCurrencyPrice("BTC", "USD");
     }
 
     private static ArrayList<String> sendGET(String GET_URL) throws IOException, IllegalArgumentException {
+        numCalls++;
         URL obj = new URL(GET_URL);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
@@ -34,7 +39,8 @@ public class AlphaRequest {
         }
     }
     public static double getCurrencyPrice(String fromCurrency, String toCurrency) throws IOException, IllegalArgumentException {
-        String getResult = sendGET(String.format("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=%s&to_currency=%s&apikey=05H3YY29U7DPZFZS", fromCurrency, toCurrency)).get(6);
+        System.out.println(numCalls);
+        String getResult = sendGET(String.format("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=%s&to_currency=%s&apikey=%s", fromCurrency, toCurrency, APIKeys[numCalls%6])).get(6);
         Double currencyPrice = Double.parseDouble(getResult.substring(29, getResult.length()-2));
         return currencyPrice;
     }
