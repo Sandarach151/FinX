@@ -1,4 +1,4 @@
-package com.example.finx.View;
+package com.example.finx;
 
 import com.example.finx.LoginApplication;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import java.io.IOException;
 public class ExploreApplication extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginApplication.class.getResource("explore-page.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginApplication.class.getResource("FXML/explore-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         stage.setTitle("Hello!");
         stage.setScene(scene);

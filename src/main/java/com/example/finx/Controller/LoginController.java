@@ -1,7 +1,7 @@
 package com.example.finx.Controller;
 
 import com.example.finx.Others.DBHandler;
-import com.example.finx.View.ExploreApplication;
+import com.example.finx.ExploreApplication;
 import com.example.finx.SignupApplication;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;

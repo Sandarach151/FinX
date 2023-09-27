@@ -1,0 +1,33 @@
+#page{
+    -fx-background-color: #121212;
+}
+
+#portfolioBtn{
+    -fx-background-color: rgb(65, 105, 225);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+#portfolioBtn:hover{
+    -fx-background-color: black;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+#topHbox{
+    -fx-border-color: black black rgb(148, 148, 148) black;
+}
+
+.stockPane{
+    -fx-background-color: rgb(48, 48, 48);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 59, 59, 0.8), 10, 0, 0, 0);
+}
+
+.stockPane:hover{
+    -fx-background-color: rgb(57, 57, 57);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 59, 59, 0.8), 10, 0, 0, 0);
+}
