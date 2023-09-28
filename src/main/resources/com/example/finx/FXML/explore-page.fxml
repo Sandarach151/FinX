@@ -336,12 +336,12 @@
          <bottom>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="BOTTOM_LEFT" prefHeight="90.0" prefWidth="110.0" text="About Programmer" textFill="#4b4b4b">
+                  <Label alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="112.0" text="About Programmer" textFill="#4b4b4b">
                      <HBox.margin>
                         <Insets bottom="10.0" left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Hyperlink alignment="TOP_CENTER" prefHeight="147.0" prefWidth="499.0" text="https://www.google.com/search?q=coding+fonts&amp;oq=coding+fonts&amp;gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiRAhiKBTIJCAIQABgKGIAEMgcIAxAAGIAEMgcIBBAAGIAEMgwIBRAAGBQYhwIYgAQyBwgGEAAYgAQyBwgHEAAYgAQyBwgIEAAYgATSAQg0NTEwajBqOagCALACAA&amp;sourceid=chrome&amp;ie=UTF-8" wrapText="true">
+                  <Hyperlink alignment="BOTTOM_CENTER" prefHeight="81.0" prefWidth="489.0" text="https://www.google.com/search?q=coding+fonts&amp;oq=coding+fonts&amp;gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiRAhiKBTIJCAIQABgKGIAEMgcIAxAAGIAEMgcIBBAAGIAEMgwIBRAAGBQYhwIYgAQyBwgGEAAYgAQyBwgHEAAYgAQyBwgIEAAYgATSAQg0NTEwajBqOagCALACAA&amp;sourceid=chrome&amp;ie=UTF-8" wrapText="true">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
