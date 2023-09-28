@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/explorePage-css.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/explorePage-css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finx.Controller.ExploreController">
    <children>
       <BorderPane layoutX="200.0" layoutY="119.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -20,7 +21,7 @@
                <children>
                   <Label fx:id="ExploreBanner" prefHeight="108.0" prefWidth="727.0" text="Explore" textFill="WHITE">
                      <font>
-                        <Font size="45.0" />
+                        <Font name="Agency FB" size="50.0" />
                      </font>
                   </Label>
                   <Button fx:id="portfolioBtn" mnemonicParsing="false" prefHeight="58.0" prefWidth="155.0" text="Portfolio" textFill="WHITE">
@@ -67,17 +68,17 @@
                                  </font>
                               </Label>
                               <Label layoutX="12.0" layoutY="49.0" prefHeight="17.0" prefWidth="89.0" text="Apple Technologies Inc" textFill="#686868" />
-                              <Label layoutX="96.0" layoutY="12.0" text="+0.36%" textFill="#4bb543">
+                              <Label fx:id="aaplPercent" layoutX="96.0" layoutY="12.0" text="--.----%" textFill="#4bb543">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="129.0" layoutY="43.0" text="+3.12" textFill="#4bb543">
+                              <Label fx:id="applNum" layoutX="129.0" layoutY="43.0" text="--.----" textFill="#4bb543">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="54.0" layoutY="79.0" text="171.96" textFill="#c8c8c8">
+                              <Label fx:id="applPrice" alignment="CENTER_RIGHT" layoutX="54.0" layoutY="79.0" text="----.--" textFill="#c8c8c8">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -96,17 +97,17 @@
                                  </font>
                               </Label>
                               <Label layoutX="12.0" layoutY="49.0" prefHeight="17.0" prefWidth="89.0" text="Starbucks Corp" textFill="#686868" />
-                              <Label layoutX="96.0" layoutY="12.0" text="+0.36%" textFill="#4bb543">
+                              <Label fx:id="sbuxPercent" layoutX="96.0" layoutY="12.0" text="--.----%" textFill="#4bb543">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="129.0" layoutY="43.0" text="+3.12" textFill="#4bb543">
+                              <Label fx:id="sbuxNum" layoutX="129.0" layoutY="43.0" text="--.----" textFill="#4bb543">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="54.0" layoutY="79.0" text="171.96" textFill="#c8c8c8">
+                              <Label fx:id="sbuxPrice" alignment="CENTER_RIGHT" layoutX="54.0" layoutY="79.0" prefHeight="53.0" prefWidth="104.0" text="---.---" textFill="#c8c8c8">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -125,17 +126,17 @@
                                  </font>
                               </Label>
                               <Label layoutX="12.0" layoutY="49.0" prefHeight="17.0" prefWidth="89.0" text="Microsoft Corp" textFill="#686868" />
-                              <Label layoutX="96.0" layoutY="12.0" text="-0.36%" textFill="FIREBRICK">
+                              <Label fx:id="msftPercent" layoutX="96.0" layoutY="12.0" text="--.----%" textFill="#4bb543">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="129.0" layoutY="43.0" text="-3.12" textFill="FIREBRICK">
+                              <Label fx:id="msftNum" layoutX="129.0" layoutY="43.0" text="--.----" textFill="#4bb543">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="54.0" layoutY="79.0" text="171.96" textFill="#c8c8c8">
+                              <Label fx:id="msftPrice" alignment="CENTER_RIGHT" layoutX="54.0" layoutY="79.0" text="----.--" textFill="#c8c8c8">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -154,17 +155,17 @@
                                  </font>
                               </Label>
                               <Label layoutX="12.0" layoutY="49.0" prefHeight="17.0" prefWidth="89.0" text="Netflix Inc" textFill="#686868" />
-                              <Label layoutX="96.0" layoutY="12.0" text="+0.36%" textFill="#4bb543">
+                              <Label fx:id="nflxPercent" layoutX="96.0" layoutY="12.0" text="--.----%" textFill="#4bb543">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="129.0" layoutY="43.0" text="+3.12" textFill="#4bb543">
+                              <Label fx:id="nflxNum" layoutX="129.0" layoutY="43.0" text="--.----" textFill="#4bb543">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="54.0" layoutY="79.0" text="171.96" textFill="#c8c8c8">
+                              <Label fx:id="nflxPrice" alignment="CENTER_RIGHT" layoutX="54.0" layoutY="79.0" text="----.--" textFill="#c8c8c8">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -183,17 +184,17 @@
                                  </font>
                               </Label>
                               <Label layoutX="12.0" layoutY="49.0" prefHeight="17.0" prefWidth="89.0" text="Tesla Inc" textFill="#686868" />
-                              <Label layoutX="96.0" layoutY="12.0" text="+0.36%" textFill="#4bb543">
+                              <Label fx:id="tslaPercent" layoutX="96.0" layoutY="12.0" text="--.----%" textFill="#4bb543">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="129.0" layoutY="43.0" text="+3.12" textFill="#4bb543">
+                              <Label fx:id="tslaNum" layoutX="129.0" layoutY="43.0" text="--.----" textFill="#4bb543">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="54.0" layoutY="79.0" text="171.96" textFill="#c8c8c8">
+                              <Label fx:id="tslaPrice" alignment="CENTER_RIGHT" layoutX="54.0" layoutY="79.0" text="----.--" textFill="#c8c8c8">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -212,17 +213,17 @@
                                  </font>
                               </Label>
                               <Label layoutX="12.0" layoutY="49.0" prefHeight="17.0" prefWidth="89.0" text="Meta Platforms Inc" textFill="#686868" />
-                              <Label layoutX="96.0" layoutY="12.0" text="+0.36%" textFill="#4bb543">
+                              <Label fx:id="metaPercent" layoutX="96.0" layoutY="12.0" text="--.----%" textFill="#4bb543">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="129.0" layoutY="43.0" text="+3.12" textFill="#4bb543">
+                              <Label fx:id="metaNum" layoutX="129.0" layoutY="43.0" text="--.----" textFill="#4bb543">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="54.0" layoutY="79.0" text="171.96" textFill="#c8c8c8">
+                              <Label fx:id="metaPrice" alignment="CENTER_RIGHT" layoutX="54.0" layoutY="79.0" text="----.--" textFill="#c8c8c8">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -263,17 +264,17 @@
                                  </font>
                               </Label>
                               <Label layoutX="12.0" layoutY="49.0" prefHeight="17.0" prefWidth="89.0" text="Bitcoin" textFill="#686868" />
-                              <Label layoutX="96.0" layoutY="12.0" text="+0.36%" textFill="#4bb543">
+                              <Label fx:id="btcPercent" layoutX="96.0" layoutY="12.0" text="--.----%" textFill="#4bb543">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="129.0" layoutY="43.0" text="+3.12" textFill="#4bb543">
+                              <Label fx:id="btcNum" layoutX="111.0" layoutY="43.0" text="----.----" textFill="#4bb543">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="54.0" layoutY="79.0" text="171.96" textFill="#c8c8c8">
+                              <Label fx:id="btcPrice" layoutX="16.0" layoutY="79.0" text="-----.----" textFill="#c8c8c8">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -292,17 +293,17 @@
                                  </font>
                               </Label>
                               <Label layoutX="12.0" layoutY="49.0" prefHeight="17.0" prefWidth="89.0" text="Ethereum" textFill="#686868" />
-                              <Label layoutX="96.0" layoutY="12.0" text="+0.36%" textFill="#4bb543">
+                              <Label fx:id="ethPercent" layoutX="96.0" layoutY="12.0" text="--.----%" textFill="#4bb543">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="129.0" layoutY="43.0" text="+3.12" textFill="#4bb543">
+                              <Label fx:id="ethNum" layoutX="121.0" layoutY="43.0" text="--.-----" textFill="#4bb543">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="54.0" layoutY="79.0" text="171.96" textFill="#c8c8c8">
+                              <Label fx:id="ethPrice" layoutX="37.0" layoutY="79.0" text="----.----" textFill="#c8c8c8">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -333,7 +334,27 @@
             </GridPane>
          </center>
          <bottom>
-            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="90.0" prefWidth="110.0" text="About Programmer" textFill="#4b4b4b">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Hyperlink alignment="TOP_CENTER" prefHeight="147.0" prefWidth="499.0" text="https://www.google.com/search?q=coding+fonts&amp;oq=coding+fonts&amp;gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiRAhiKBTIJCAIQABgKGIAEMgcIAxAAGIAEMgcIBBAAGIAEMgwIBRAAGBQYhwIYgAQyBwgGEAAYgAQyBwgHEAAYgAQyBwgIEAAYgATSAQg0NTEwajBqOagCALACAA&amp;sourceid=chrome&amp;ie=UTF-8" wrapText="true">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Hyperlink>
+                  <Button id="placeOrderBtn" mnemonicParsing="false" prefHeight="71.0" prefWidth="225.0" text="Place Order" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="20.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Button>
+               </children></HBox>
          </bottom>
       </BorderPane>
    </children>

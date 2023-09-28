@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DBHandler {
-    private static final String USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/users.csv";
+    private static final String USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/users.csv";
 
-    private static final String CURRENT_USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/currentUser.csv";
+    private static final String CURRENT_USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentUser.csv";
 
     public static UserDB loadUsers() {
         UserDB database = new UserDB();

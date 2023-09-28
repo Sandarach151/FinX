@@ -1,104 +1,155 @@
 package com.example.finx.Controller;
 
-import com.example.finx.Model.UserDB;
-import com.example.finx.Others.AlphaRequest;
-import com.example.finx.Others.DBHandler;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.example.finx.Others.FinnhubHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.util.Duration;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
 public class ExploreController {
-    @FXML
-    private TextField BTCTextField;
-    @FXML
-    private TextField ETHTextField;
-    @FXML
-    private TextField BTCHoldings;
-    @FXML
-    private TextField ETHHoldings;
-    @FXML
-    private Button BTCDetails;
-    @FXML
-    private Button ETHDetails;
-    @FXML
-    private Button goToPortfolioBtn;
-    @FXML
-    private RadioButton buyRadioBTN;
-    @FXML
-    private RadioButton sellRadioBtn;
-    @FXML
-    private TextField BuySellNumUnits;
-    @FXML
-    private ChoiceBox<String> optionsChoiceBox;
-    @FXML
-    private Button confirmBtn;
-    @FXML
-    private Button logOutBtn;
-    @FXML
-    private Label cashRemainLabel;
 
     @FXML
-    void onConfirmBtnClicked(MouseEvent event) {
-        UserDB database = DBHandler.loadUsers();
-        if(buyRadioBTN.isSelected()){
-            if(optionsChoiceBox.getValue().equals("Bitcoin")){
-                database.findUserByUsername(DBHandler.getCurrentUser().getUsername()).buy("BTC", Integer.parseInt(BuySellNumUnits.getText()), Double.parseDouble(BTCTextField.getText()));
-            }
-            if(optionsChoiceBox.getValue().equals("Ethereum")){
-                database.findUserByUsername(DBHandler.getCurrentUser().getUsername()).buy("ETH", Integer.parseInt(BuySellNumUnits.getText()), Double.parseDouble(ETHTextField.getText()));
-            }
-        }
-        if(sellRadioBtn.isSelected()){
-            if(optionsChoiceBox.getValue().equals("Bitcoin")){
-                database.findUserByUsername(DBHandler.getCurrentUser().getUsername()).sell("BTC", Integer.parseInt(BuySellNumUnits.getText()), Double.parseDouble(BTCTextField.getText()));
-            }
-            if(optionsChoiceBox.getValue().equals("Ethereum")){
-                database.findUserByUsername(DBHandler.getCurrentUser().getUsername()).sell("ETH", Integer.parseInt(BuySellNumUnits.getText()), Double.parseDouble(ETHTextField.getText()));
-            }
-        }
-        DBHandler.printUsers(database);
-        BTCHoldings.setText(String.valueOf(DBHandler.getCurrentUser().getBTCHoldings()));
-        ETHHoldings.setText(String.valueOf(DBHandler.getCurrentUser().getETHHoldings()));
-        cashRemainLabel.setText("$"+DBHandler.getCurrentUser().getBalance());
-    }
+    private Label aaplPercent;
+
+    @FXML
+    private Label applNum;
+
+    @FXML
+    private Label applPrice;
+
+    @FXML
+    private Label metaNum;
+
+    @FXML
+    private Label metaPercent;
+
+    @FXML
+    private Label metaPrice;
+
+    @FXML
+    private Label msftNum;
+
+    @FXML
+    private Label msftPercent;
+
+    @FXML
+    private Label msftPrice;
+
+    @FXML
+    private Label nflxNum;
+
+    @FXML
+    private Label nflxPercent;
+
+    @FXML
+    private Label nflxPrice;
+
+    @FXML
+    private Button portfolioBtn;
+
+    @FXML
+    private Label sbuxNum;
+
+    @FXML
+    private Label sbuxPercent;
+
+    @FXML
+    private Label sbuxPrice;
+
+    @FXML
+    private Label tslaNum;
+
+    @FXML
+    private Label tslaPercent;
+
+    @FXML
+    private Label tslaPrice;
+
+    @FXML
+    private Label btcNum;
+
+    @FXML
+    private Label btcPercent;
+
+    @FXML
+    private Label btcPrice;
+
+    @FXML
+    private Label ethNum;
+
+    @FXML
+    private Label ethPercent;
+
+    @FXML
+    private Label ethPrice;
 
     public void initialize() throws IOException {
-        TextField[] CurrencyTextFields = {BTCTextField, ETHTextField};
-        String[] Currencies = {"BTC", "ETH"};
-        ObservableList<String> list = FXCollections.observableArrayList("Bitcoin", "Ethereum");
-        optionsChoiceBox.setItems(list);
-        BTCHoldings.setText(String.valueOf(DBHandler.getCurrentUser().getBTCHoldings()));
-        ETHHoldings.setText(String.valueOf(DBHandler.getCurrentUser().getETHHoldings()));
-        cashRemainLabel.setText("$"+DBHandler.getCurrentUser().getBalance());
-        for(int i=0; i<Currencies.length; i++){
-            System.out.println(Currencies[i]);
-            double curCurrencyPrice = AlphaRequest.getCurrencyPrice(Currencies[i], "SGD");
-            CurrencyTextFields[i].setText(String.valueOf(curCurrencyPrice));
-            CurrencyTextFields[i].setEditable(false);
-        }
+        String[] symbols = {"AAPL", "MSFT", "TSLA", "SBUX", "NFLX", "META", "BINANCE:BTCUSDT", "BINANCE:ETHUSDT"};
+        Label[] percents = {aaplPercent, msftPercent, tslaPercent, sbuxPercent, nflxPercent, metaPercent, btcPercent, ethPercent};
+        Label[] nums = {applNum, msftNum, tslaNum, sbuxNum, nflxNum, metaNum, btcNum, ethNum};
+        Label[] prices = {applPrice, msftPrice, tslaPrice, sbuxPrice, nflxPrice, metaPrice, btcPrice, ethPrice};
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(15), event -> {
+            try {
+                for (int i = 0; i < 8; i++) {
+                    Double[] curResult = FinnhubHandler.getStockPrice(symbols[i]);
+                    percents[i].setText(String.format("%.2f%%", curResult[2]));
+                    nums[i].setText(String.format("%.2f", curResult[1]));
+                    prices[i].setText(String.format("%.2f", curResult[0]));
+
+                    if (curResult[2] > 0) {
+                        percents[i].setText("+" + percents[i].getText());
+                        percents[i].setStyle("-fx-text-fill: #4bb543;");
+                        nums[i].setText("+" + nums[i].getText());
+                        nums[i].setStyle("-fx-text-fill: #4bb543;");
+                    } else {
+                        percents[i].setStyle("-fx-text-fill: #b22222;");
+                        nums[i].setStyle("-fx-text-fill: #b22222;");
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+        Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            try {
+                for (int i = 0; i < 8; i++) {
+                    Double[] curResult = FinnhubHandler.getStockPrice(symbols[i]);
+                    percents[i].setText(String.format("%.2f%%", curResult[2]));
+                    nums[i].setText(String.format("%.2f", curResult[1]));
+                    prices[i].setText(String.format("%.2f", curResult[0]));
+
+                    if (curResult[2] > 0) {
+                        percents[i].setText("+" + percents[i].getText());
+                        percents[i].setStyle("-fx-text-fill: #4bb543;");
+                        nums[i].setText("+" + nums[i].getText());
+                        nums[i].setStyle("-fx-text-fill: #4bb543;");
+                    } else {
+                        percents[i].setStyle("-fx-text-fill: #b22222;");
+                        nums[i].setStyle("-fx-text-fill: #b22222;");
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
+        timeline2.setCycleCount(1);
+        timeline2.play();
     }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

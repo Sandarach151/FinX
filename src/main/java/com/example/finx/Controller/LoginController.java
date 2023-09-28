@@ -3,6 +3,7 @@ package com.example.finx.Controller;
 import com.example.finx.Others.DBHandler;
 import com.example.finx.ExploreApplication;
 import com.example.finx.SignupApplication;
+import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -23,9 +24,10 @@ public class LoginController {
         if(database.findUserByUsername(usernameText.getText())!=null && database.findUserByUsername(usernameText.getText()).getPassword().equals(passwordField.getText())){
             System.out.println("Login Successful");
             DBHandler.setCurrentUser(usernameText.getText());
-            Stage stage = (Stage) usernameText.getScene().getWindow();
             ExploreApplication app = new ExploreApplication();
-            app.start(stage);
+            app.start(new Stage());
+            Stage primary = (Stage) this.signUpBtn.getScene().getWindow();
+            primary.close();
         }
         else{
             System.out.println("Login Unsuccessful");
