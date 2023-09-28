@@ -25,7 +25,7 @@ public class SignupController {
 
     @FXML
     void onSignUpBtnClicked(MouseEvent event) throws IOException {
-        if(passwordField.getText().equals(confirmPasswordField.getText()) && DBHandler.insertUser(usernameText.getText(), passwordField.getText(), 100000.0, 0, 0, new ArrayList<>())){
+        if(passwordField.getText().equals(confirmPasswordField.getText()) && DBHandler.insertUser(usernameText.getText(), passwordField.getText(), 1000000.0, new ArrayList<>())){
             Stage stage = (Stage) signUpBtn.getScene().getWindow();
             LoginApplication app = new LoginApplication();
             app.start(stage);

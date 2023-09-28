@@ -26,8 +26,6 @@ public class DBHandler {
                 String username = parts[0];
                 String password = parts[1];
                 Double balance = Double.valueOf(parts[2]);
-                Integer BTCHoldings = Integer.valueOf(parts[3]);
-                Integer ETHHoldings = Integer.valueOf(parts[4]);
                 String allstocksString = scanner.nextLine();
                 allstocksString = allstocksString.substring(1, allstocksString.length()-1);
                 String[] allstocksArr = allstocksString.split("----");
@@ -35,7 +33,7 @@ public class DBHandler {
                 for(String stockString: allstocksArr){
                     if(!stockString.equals("")) stocks.add(Stock.fromString(stockString));
                 }
-                User user = new User(username, password, balance, BTCHoldings, ETHHoldings, stocks);
+                User user = new User(username, password, balance, stocks);
                 database.addUser(user);
             }
             scanner.close();
@@ -45,14 +43,14 @@ public class DBHandler {
         return database;
     }
 
-    public static boolean insertUser(String username, String password, Double balance, Integer BTCHoldings, Integer ETHHoldings, ArrayList<Stock> stocks){
+    public static boolean insertUser(String username, String password, Double balance, ArrayList<Stock> stocks){
         try {
             if(loadUsers().findUserByUsername(username)==null) {
                 FileWriter fileWriter = new FileWriter(USER_FILE_PATH, true); // Append mode
                 PrintWriter printWriter = new PrintWriter(fileWriter);
 
                 // Format the user data as a CSV line
-                StringBuilder formattedLine = new StringBuilder(username + ", " + password + ", " + balance + ", " + BTCHoldings + ", " + ETHHoldings);
+                StringBuilder formattedLine = new StringBuilder(username + ", " + password + ", " + balance);
                 formattedLine.append("\n[");
                 for (Stock stock : stocks) {
                     formattedLine.append(stock.toString()).append("----");
@@ -100,8 +98,7 @@ public class DBHandler {
         try {
             FileWriter fileWriter = new FileWriter(USER_FILE_PATH); // Append mode
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            StringBuilder formattedLine = new StringBuilder(database.toString());
-            printWriter.println(formattedLine);
+            printWriter.println(database.toString());
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -5,21 +5,21 @@ import com.example.finx.Controller.LoginController;
 import java.time.LocalDateTime;
 
 public class Stock {
-    private String currency;
+    private String symbol;
     private Integer amt;
     private Double price;
     private Character BS;
     private LocalDateTime transactionDate;
-    public Stock(String currency, Integer amt, Double price, Character BS) {
-        this.currency = currency;
+    public Stock(String symbol, Integer amt, Double price, Character BS) {
+        this.symbol = symbol;
         this.amt = amt;
         this.price = price;
         this.BS = BS;
         this.transactionDate = LocalDateTime.now();
     }
 
-    public Stock(String currency, Integer amt, Double price, Character BS, LocalDateTime date) {
-        this.currency = currency;
+    public Stock(String symbol, Integer amt, Double price, Character BS, LocalDateTime date) {
+        this.symbol = symbol;
         this.amt = amt;
         this.price = price;
         this.BS = BS;
@@ -28,7 +28,7 @@ public class Stock {
 
     @Override
     public String toString() {
-        return "{"+this.currency+", "+this.amt+", "+this.price+", "+this.BS+", "+this.transactionDate+"}";
+        return "{"+this.symbol+", "+this.amt+", "+this.price+", "+this.BS+", "+this.transactionDate+"}";
     }
 
     public static Stock fromString(String stockString) {
@@ -50,4 +50,23 @@ public class Stock {
         }
     }
 
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public Integer getAmt() {
+        return amt;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public Character getBS() {
+        return BS;
+    }
+
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
+    }
 }

@@ -19,7 +19,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Arrays;
+import java.util.Date;
 
 public class ExploreController {
 
@@ -147,7 +149,9 @@ public class ExploreController {
                     newsImage.setImage(image2);
                 }
                 headlineLabel.setText(news[1]);
-                dateLabel.setText(news[0]);
+                Instant instant = Instant.ofEpochSecond(Integer.parseInt(news[0]));
+                Date date = Date.from(instant);
+                dateLabel.setText(date.toString());
                 newsURL.setText(news[3]);
                 newsURL.setVisited(false);
             } catch (IOException e) {
@@ -188,7 +192,9 @@ public class ExploreController {
                     newsImage.setImage(image2);
                 }
                 headlineLabel.setText(news[1]);
-                dateLabel.setText(news[0]);
+                Instant instant = Instant.ofEpochSecond(Integer.parseInt(news[0]));
+                Date date = Date.from(instant);
+                dateLabel.setText(date.toString());
                 newsURL.setText(news[3]);
                 newsURL.setVisited(false);
             } catch (IOException e) {

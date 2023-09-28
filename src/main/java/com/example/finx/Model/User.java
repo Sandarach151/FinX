@@ -11,65 +11,51 @@ public class User {
 
     private Double balance;
 
-    private Integer BTCHoldings;
-
-    private Integer ETHHoldings;
-
     private ArrayList<Stock> stocks;
 
-    public User(String username, String password, Double balance, Integer BTCHoldings, Integer ETHHoldings, ArrayList<Stock> stocks) {
+    public User(String username, String password, Double balance, ArrayList<Stock> stocks) {
         this.username = username;
         this.password = password;
         this.balance = balance;
-        this.BTCHoldings = BTCHoldings;
-        this.ETHHoldings = ETHHoldings;
         this.stocks = stocks;
     }
 
-    public boolean buy(String currency, int numberOfStocks, double buyPrice) {
+    public int getHoldings(String symbol) {
+        int ans = 0;
+        for(Stock stock : stocks){
+            if(stock.getSymbol().equals(symbol)){
+                if(stock.getBS().equals('B')){
+                    ans+=stock.getAmt();
+                }
+                else{
+                    ans-=stock.getAmt();
+                }
+            }
+        }
+        return ans;
+    }
+
+    public boolean buy(String symbol, int numberOfStocks, double buyPrice) {
         double totalPrice = numberOfStocks * buyPrice;
         if (totalPrice <= balance) {
-            if(currency.equals("BTC")) {
-                stocks.add(new Stock(currency, numberOfStocks, buyPrice, 'B'));
-                this.BTCHoldings += numberOfStocks;
-                this.balance-=totalPrice;
-                return true;
-            }
-            if(currency.equals("ETH")){
-                stocks.add(new Stock(currency, numberOfStocks, buyPrice, 'B'));
-                this.ETHHoldings += numberOfStocks;
-                this.balance-=totalPrice;
-                return true;
-            }
-            return false;
-        } else {
+            stocks.add(new Stock(symbol, numberOfStocks, buyPrice, 'B'));
+            this.balance -= totalPrice;
+            return true;
+        }
+        else {
             return false; // Insufficient balance
         }
     }
 
-    public boolean sell(String currency, int numberOfStocks, double sellPrice){
-        stocks.add(new Stock(currency, numberOfStocks, sellPrice, 'S'));
-        if(currency.equals("BTC")){
-            if(numberOfStocks<=this.BTCHoldings){
-                this.balance+=numberOfStocks*sellPrice;
-                this.BTCHoldings-=numberOfStocks;
-                return true;
-            }
-            else{
-                return false;
-            }
+    public boolean sell(String symbol, int numberOfStocks, double sellPrice){
+        if(this.getHoldings(symbol)>=numberOfStocks){
+            stocks.add(new Stock(symbol, numberOfStocks, sellPrice, 'S'));
+            this.balance+=numberOfStocks*sellPrice;
+            return true;
         }
-        if(currency.equals("ETH")){
-            if(numberOfStocks<=this.ETHHoldings){
-                this.balance+=numberOfStocks*sellPrice;
-                this.ETHHoldings-=numberOfStocks;
-                return true;
-            }
-            else{
-                return false;
-            }
+        else {
+            return false;
         }
-        return false;
     }
 
     public String getUsername() {
@@ -96,22 +82,6 @@ public class User {
         this.balance = balance;
     }
 
-    public Integer getBTCHoldings() {
-        return BTCHoldings;
-    }
-
-    public void setBTCHoldings(Integer BTCHoldings) {
-        this.BTCHoldings = BTCHoldings;
-    }
-
-    public Integer getETHHoldings() {
-        return ETHHoldings;
-    }
-
-    public void setETHHoldings(Integer ETHHoldings) {
-        this.ETHHoldings = ETHHoldings;
-    }
-
     public ArrayList<Stock> getStocks() {
         return stocks;
     }
@@ -122,7 +92,7 @@ public class User {
 
     @Override
     public String toString() {
-        StringBuilder userString = new StringBuilder(this.username + ", " + this.password + ", " + this.balance + ", " + this.BTCHoldings + ", " + this.ETHHoldings + "\n[");
+        StringBuilder userString = new StringBuilder(this.username + ", " + this.password + ", " + this.balance + "\n[");
         for(Stock stock: this.stocks){
             userString.append(stock.toString()).append("----");
         }
