@@ -1,5 +1,7 @@
 package com.example.finx.Controller;
 
+import com.example.finx.ExploreApplication;
+import com.example.finx.HomeApplication;
 import com.example.finx.Others.FinnhubHandler;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -8,6 +10,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -22,6 +25,8 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ExploreController {
 
@@ -112,97 +117,75 @@ public class ExploreController {
     @FXML
     private Hyperlink newsURL;
 
+    @FXML
+    void onPortfolioBtnClicked(MouseEvent event) throws IOException {
+        HomeApplication app = new HomeApplication();
+        app.start(new Stage());
+        Stage primary = (Stage) this.portfolioBtn.getScene().getWindow();
+        primary.close();
+    }
+
     public void initialize() throws IOException {
         String[] symbols = {"AAPL", "MSFT", "TSLA", "SBUX", "NFLX", "META", "BINANCE:BTCUSDT", "BINANCE:ETHUSDT"};
         Label[] percents = {aaplPercent, msftPercent, tslaPercent, sbuxPercent, nflxPercent, metaPercent, btcPercent, ethPercent};
         Label[] nums = {applNum, msftNum, tslaNum, sbuxNum, nflxNum, metaNum, btcNum, ethNum};
         Label[] prices = {applPrice, msftPrice, tslaPrice, sbuxPrice, nflxPrice, metaPrice, btcPrice, ethPrice};
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(15), event -> {
-            try {
-                for (int i = 0; i < 8; i++) {
-                    Double[] curResult = FinnhubHandler.getStockPrice(symbols[i]);
-                    percents[i].setText(String.format("%.2f%%", curResult[2]));
-                    nums[i].setText(String.format("%.2f", curResult[1]));
-                    prices[i].setText(String.format("%.2f", curResult[0]));
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-                    if (curResult[2] > 0) {
-                        percents[i].setText("+" + percents[i].getText());
-                        percents[i].setStyle("-fx-text-fill: #4bb543;");
-                        nums[i].setText("+" + nums[i].getText());
-                        nums[i].setStyle("-fx-text-fill: #4bb543;");
-                    } else {
-                        percents[i].setStyle("-fx-text-fill: #b22222;");
-                        nums[i].setStyle("-fx-text-fill: #b22222;");
+        Thread stockUpdateThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    while(true){
+                        for (int i = 0; i < 8; i++) {
+                            Double[] curResult = FinnhubHandler.getStockPrice(symbols[i]);
+                            String percentText = String.format("%.2f%%", curResult[2]);
+                            String numText = String.format("%.2f", curResult[1]);
+                            String priceText = String.format("%.2f", curResult[0]);
+
+                            int finalI = i;
+                            Platform.runLater(() -> {
+                                // Update UI components using Platform.runLater()
+                                percents[finalI].setText(curResult[2] > 0 ? "+" + percentText : percentText);
+                                percents[finalI].setStyle(curResult[2] > 0 ? "-fx-text-fill: #4bb543;" : "-fx-text-fill: #b22222;");
+                                nums[finalI].setText(curResult[2] > 0 ? "+" + numText : numText);
+                                nums[finalI].setStyle(curResult[2] > 0 ? "-fx-text-fill: #4bb543;" : "-fx-text-fill: #b22222;");
+                                prices[finalI].setText(priceText);
+                            });
+                        }
+                        String[] news = FinnhubHandler.getRandNews();
+                        System.out.println(Arrays.toString(news));
+                        try {
+                            Image image = new Image(news[2]);
+                            newsImage.setImage(image);
+                            newsImage.setPreserveRatio(true);
+                            newsImage.setSmooth(true);
+                        } catch (IllegalArgumentException e) {
+                            Image image2 = new Image("https://www.adviserinvestments.com/wp-content/uploads/are-stocks-overpriced-stocks-overpriced.jpg.webp");
+                            newsImage.setImage(image2);
+                        }
+                        String headline = news[1];
+                        Instant instant = Instant.ofEpochSecond(Integer.parseInt(news[0]));
+                        Date date = Date.from(instant);
+                        String dateString = date.toString();
+                        String newsURLText = news[3];
+
+                        Platform.runLater(() -> {
+                            // Update UI components using Platform.runLater()
+                            headlineLabel.setText(headline);
+                            dateLabel.setText(dateString);
+                            newsURL.setText(newsURLText);
+                            newsURL.setVisited(false);
+                        });
+                        Thread.sleep(15000);
                     }
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
-                String[] news = FinnhubHandler.getRandNews();
-                System.out.println(Arrays.toString(news));
-                try {
-                    Image image = new Image(news[2]);
-                    newsImage.setImage(image);
-                    newsImage.setPreserveRatio(true);
-                    newsImage.setSmooth(true);
-                }
-                catch (IllegalArgumentException e){
-                    Image image2 = new Image("https://www.adviserinvestments.com/wp-content/uploads/are-stocks-overpriced-stocks-overpriced.jpg.webp");
-                    newsImage.setImage(image2);
-                }
-                headlineLabel.setText(news[1]);
-                Instant instant = Instant.ofEpochSecond(Integer.parseInt(news[0]));
-                Date date = Date.from(instant);
-                dateLabel.setText(date.toString());
-                newsURL.setText(news[3]);
-                newsURL.setVisited(false);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-
-        Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            try {
-                for (int i = 0; i < 8; i++) {
-                    Double[] curResult = FinnhubHandler.getStockPrice(symbols[i]);
-                    percents[i].setText(String.format("%.2f%%", curResult[2]));
-                    nums[i].setText(String.format("%.2f", curResult[1]));
-                    prices[i].setText(String.format("%.2f", curResult[0]));
-
-                    if (curResult[2] > 0) {
-                        percents[i].setText("+" + percents[i].getText());
-                        percents[i].setStyle("-fx-text-fill: #4bb543;");
-                        nums[i].setText("+" + nums[i].getText());
-                        nums[i].setStyle("-fx-text-fill: #4bb543;");
-                    } else {
-                        percents[i].setStyle("-fx-text-fill: #b22222;");
-                        nums[i].setStyle("-fx-text-fill: #b22222;");
-                    }
-                }
-                String[] news = FinnhubHandler.getRandNews();
-                System.out.println(Arrays.toString(news));
-                try {
-                    Image image = new Image(news[2]);
-                    newsImage.setImage(image);
-                    newsImage.setPreserveRatio(true);
-                    newsImage.setSmooth(true);
-                }
-                catch (IllegalArgumentException e){
-                    Image image2 = new Image("https://www.adviserinvestments.com/wp-content/uploads/are-stocks-overpriced-stocks-overpriced.jpg.webp");
-                    newsImage.setImage(image2);
-                }
-                headlineLabel.setText(news[1]);
-                Instant instant = Instant.ofEpochSecond(Integer.parseInt(news[0]));
-                Date date = Date.from(instant);
-                dateLabel.setText(date.toString());
-                newsURL.setText(news[3]);
-                newsURL.setVisited(false);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }));
-        timeline2.setCycleCount(1);
-        timeline2.play();
+        });
+        executorService.execute(stockUpdateThread);
+        stockUpdateThread.setDaemon(true);
     }
-
 }

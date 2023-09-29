@@ -1,0 +1,48 @@
+#page{
+    -fx-background-color: #121212;
+}
+
+#exploreBtn{
+    -fx-background-color: #00308f;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+#exploreBtn:hover{
+    -fx-background-color: #00308fab;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+#topHbox{
+    -fx-border-color: black black rgb(148, 148, 148) black;
+}
+
+#transactHistory, #confirmPurchase{
+    -fx-background-color: #4169e1;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+#transactHistory:hover, #confirmPurchase:hover{
+    -fx-background-color: #4169e1ab;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+#accValue, #remCash, #todayChange{
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #636363;
+}
+
+#stockTable{
+    -fx-border-color: rgb(148, 148, 148) #121212 #121212 #121212;
+}
+
+#orderSymbol, #orderQty{
+    -fx-background-color: rgb(48, 48, 48);
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}

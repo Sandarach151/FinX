@@ -98,7 +98,7 @@ public class DBHandler {
         try {
             FileWriter fileWriter = new FileWriter(USER_FILE_PATH); // Append mode
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.println(database.toString());
+            printWriter.print(database.toString());
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

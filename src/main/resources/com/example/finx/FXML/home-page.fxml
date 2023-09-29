@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/homePage-css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finx.Controller.HomeController">
+    <children>
+        <BorderPane layoutX="200.0" layoutY="119.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <HBox fx:id="topHbox" prefHeight="80.0" prefWidth="860.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="ExploreBanner" prefHeight="108.0" prefWidth="727.0" text="Home" textFill="WHITE">
+                            <font>
+                                <Font name="Agency FB" size="50.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="exploreBtn" mnemonicParsing="false" onMouseClicked="#onExploreBtnClicked" prefHeight="58.0" prefWidth="155.0" text="Explore" textFill="WHITE">
+                            <font>
+                                <Font size="26.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets left="20.0" right="20.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </top>
+            <center>
+                <GridPane prefHeight="385.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="252.66668701171875" minHeight="10.0" prefHeight="54.16667175292969" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="457.3333282470703" minHeight="10.0" prefHeight="190.3333282470703" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="457.3333282470703" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="541.0" text="Portfolio" textFill="IVORY">
+                            <font>
+                                <Font name="System Bold" size="30.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="724.0" text="Order" textFill="IVORY" GridPane.columnIndex="1">
+                            <font>
+                                <Font name="System Bold" size="30.0" />
+                            </font>
+                        </Label>
+                        <GridPane hgap="20.0" GridPane.rowIndex="1">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.3333282470703" minWidth="10.0" prefWidth="214.3333282470703" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="235.6666717529297" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label alignment="CENTER_RIGHT" prefHeight="219.0" prefWidth="225.0" text="Account Value: " textFill="#b5b5b5">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="accValue" prefHeight="35.0" prefWidth="216.0" text="\$1000000" textFill="IVORY" GridPane.columnIndex="1">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="5.0" left="10.0" top="5.0" />
+                                    </padding>
+                                </Label>
+                                <Label alignment="CENTER_RIGHT" prefHeight="104.0" prefWidth="296.0" text="Remaining Cash: " textFill="#b5b5b5" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER_RIGHT" prefHeight="182.0" prefWidth="215.0" text="Today's Change: " textFill="#b5b5b5" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="remCash" layoutX="225.0" layoutY="24.0" prefHeight="35.0" prefWidth="336.0" text="\$1000000" textFill="IVORY" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="5.0" left="10.0" top="5.0" />
+                                    </padding>
+                                </Label>
+                                <Label fx:id="todayChange" layoutX="225.0" layoutY="86.0" prefHeight="35.0" prefWidth="336.0" text="0" textFill="IVORY" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="5.0" left="10.0" top="5.0" />
+                                    </padding>
+                                </Label>
+                            </children>
+                        </GridPane>
+                        <Button fx:id="transactHistory" alignment="CENTER" mnemonicParsing="false" prefHeight="51.0" prefWidth="242.0" text="Transaction History" textFill="WHITE" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="22.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets left="100.0" right="100.0" />
+                            </GridPane.margin>
+                        </Button>
+                  <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="179.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.66668701171875" minWidth="10.0" prefWidth="231.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="104.0" prefWidth="296.0" text="Symbol: " textFill="#b5b5b5" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" prefHeight="182.0" prefWidth="215.0" text="Quantity: " textFill="#b5b5b5" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="orderSymbol" prefHeight="45.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="orderQty" layoutX="209.0" layoutY="82.0" prefHeight="45.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <HBox prefHeight="49.0" prefWidth="211.0" spacing="40.0" GridPane.columnIndex="1">
+                           <children>
+                              <RadioButton fx:id="bStock" mnemonicParsing="false" prefHeight="63.0" prefWidth="81.0" text="Buy" textAlignment="CENTER" textFill="IVORY">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="BSstock" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="sStock" mnemonicParsing="false" prefHeight="63.0" prefWidth="81.0" text="Sell" textAlignment="CENTER" textFill="IVORY" toggleGroup="$BSstock">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </RadioButton>
+                           </children>
+                           <GridPane.margin>
+                              <Insets left="20.0" />
+                           </GridPane.margin>
+                        </HBox>
+                     </children>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </GridPane>
+                  <Button fx:id="confirmPurchase" alignment="CENTER" layoutX="110.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#onConfirmPurchaseClicked" prefHeight="51.0" prefWidth="242.0" text="Confirm Purchase" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="100.0" right="100.0" />
+                     </GridPane.margin>
+                  </Button>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets left="20.0" right="20.0" top="10.0" />
+                    </BorderPane.margin>
+                </GridPane>
+            </center>
+            <bottom>
+                <GridPane fx:id="stockTable" prefHeight="188.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label alignment="CENTER" prefHeight="96.0" prefWidth="113.0" text="BTC" textFill="WHITE" GridPane.columnIndex="7">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="30.0" layoutY="10.0" prefHeight="96.0" prefWidth="113.0" text="MSFT" textFill="WHITE" GridPane.columnIndex="2">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="138.0" layoutY="10.0" prefHeight="96.0" prefWidth="113.0" text="TSLA" textFill="WHITE" GridPane.columnIndex="3">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="30.0" layoutY="10.0" prefHeight="96.0" prefWidth="113.0" text="SBUX" textFill="WHITE" GridPane.columnIndex="4">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="30.0" layoutY="10.0" prefHeight="96.0" prefWidth="113.0" text="NFLX" textFill="WHITE" GridPane.columnIndex="5">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="30.0" layoutY="10.0" prefHeight="96.0" prefWidth="113.0" text="META" textFill="WHITE" GridPane.columnIndex="6">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="676.0" layoutY="10.0" prefHeight="96.0" prefWidth="113.0" text="ETH" textFill="WHITE" GridPane.columnIndex="8">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="783.0" layoutY="10.0" prefHeight="96.0" prefWidth="113.0" text="AAPL" textFill="WHITE" GridPane.columnIndex="1">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="105.0" layoutY="10.0" prefHeight="96.0" prefWidth="113.0" text="Symbol" textFill="#8b8b8b">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="96.0" prefWidth="113.0" text="Qty" textFill="#8b8b8b" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="57.0" prefHeight="96.0" prefWidth="113.0" text="Total Value" textFill="#8b8b8b" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="104.0" prefHeight="96.0" prefWidth="113.0" text="Stock Price" textFill="#8b8b8b" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                        <Label fx:id="aaplQty" alignment="CENTER" prefHeight="139.0" prefWidth="95.0" text="0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="aaplValue" alignment="CENTER" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="msftQty" alignment="CENTER" layoutX="105.0" layoutY="57.0" prefHeight="139.0" prefWidth="95.0" text="0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="tslaQty" alignment="CENTER" layoutX="200.0" layoutY="57.0" prefHeight="139.0" prefWidth="95.0" text="0" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="sbuxQty" alignment="CENTER" layoutX="295.0" layoutY="57.0" prefHeight="139.0" prefWidth="95.0" text="0" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="nflxQty" alignment="CENTER" layoutX="390.0" layoutY="57.0" prefHeight="139.0" prefWidth="95.0" text="0" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="metaQty" alignment="CENTER" layoutX="486.0" layoutY="57.0" prefHeight="139.0" prefWidth="95.0" text="0" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="btcQty" alignment="CENTER" layoutX="582.0" layoutY="57.0" prefHeight="139.0" prefWidth="95.0" text="0" textFill="WHITE" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="ethQty" alignment="CENTER" layoutX="678.0" layoutY="57.0" prefHeight="139.0" prefWidth="95.0" text="0" textFill="WHITE" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="msftValue" alignment="CENTER" layoutX="105.0" layoutY="104.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="tslaValue" alignment="CENTER" layoutX="200.0" layoutY="104.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="sbuxValue" alignment="CENTER" layoutX="295.0" layoutY="104.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="nflxValue" alignment="CENTER" layoutX="390.0" layoutY="104.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="metaValue" alignment="CENTER" layoutX="486.0" layoutY="104.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="btcValue" alignment="CENTER" layoutX="582.0" layoutY="104.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="ethValue" alignment="CENTER" layoutX="678.0" layoutY="104.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="aaplChange" alignment="CENTER" layoutX="105.0" layoutY="104.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="msftChange" alignment="CENTER" layoutX="105.0" layoutY="151.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="tslaChange" alignment="CENTER" layoutX="200.0" layoutY="151.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="sbuxChange" alignment="CENTER" layoutX="295.0" layoutY="151.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="nflxChange" alignment="CENTER" layoutX="390.0" layoutY="151.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="metaChange" alignment="CENTER" layoutX="486.0" layoutY="151.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="btcChange" alignment="CENTER" layoutX="582.0" layoutY="151.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="7" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="ethChange" alignment="CENTER" layoutX="678.0" layoutY="151.0" prefHeight="80.0" prefWidth="95.0" text="\$0" textFill="WHITE" GridPane.columnIndex="8" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                    </BorderPane.margin>
+                    <padding>
+                        <Insets top="10.0" />
+                    </padding>
+                </GridPane>
+            </bottom>
+        </BorderPane>
+    </children>
+</AnchorPane>

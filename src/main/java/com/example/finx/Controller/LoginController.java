@@ -1,5 +1,6 @@
 package com.example.finx.Controller;
 
+import com.example.finx.HomeApplication;
 import com.example.finx.Others.DBHandler;
 import com.example.finx.ExploreApplication;
 import com.example.finx.SignupApplication;
@@ -24,7 +25,7 @@ public class LoginController {
         if(database.findUserByUsername(usernameText.getText())!=null && database.findUserByUsername(usernameText.getText()).getPassword().equals(passwordField.getText())){
             System.out.println("Login Successful");
             DBHandler.setCurrentUser(usernameText.getText());
-            ExploreApplication app = new ExploreApplication();
+            HomeApplication app = new HomeApplication();
             app.start(new Stage());
             Stage primary = (Stage) this.signUpBtn.getScene().getWindow();
             primary.close();

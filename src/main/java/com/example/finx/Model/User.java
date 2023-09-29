@@ -58,6 +58,21 @@ public class User {
         }
     }
 
+    public double getInvestment(String symbol){
+        double ans = 0;
+        for(Stock stock : stocks){
+            if(stock.getSymbol().equals(symbol)){
+                if(stock.getBS().equals('B')){
+                    ans+=stock.getPrice()*stock.getAmt();
+                }
+                if(stock.getBS().equals('S')){
+                    ans-=stock.getPrice()*stock.getAmt();
+                }
+            }
+        }
+        return ans;
+    }
+
     public String getUsername() {
         return username;
     }
