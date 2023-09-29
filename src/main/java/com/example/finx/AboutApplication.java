@@ -6,11 +6,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoginApplication extends javafx.application.Application {
+public class AboutApplication extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginApplication.class.getResource("View/login-page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 335, 600);
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginApplication.class.getResource("View/about-page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

@@ -1,5 +1,6 @@
 package com.example.finx.Controller;
 
+import com.example.finx.AboutApplication;
 import com.example.finx.ExploreApplication;
 import com.example.finx.HomeApplication;
 import com.example.finx.Others.DBHandler;
@@ -131,8 +132,9 @@ public class ExploreController {
     }
 
     @FXML
-    void showAbout(MouseEvent event) {
-
+    void showAbout(MouseEvent event) throws IOException {
+        AboutApplication app = new AboutApplication();
+        app.start(new Stage());
     }
 
     public void initialize() throws IOException {
