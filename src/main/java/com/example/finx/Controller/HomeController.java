@@ -1,7 +1,8 @@
 package com.example.finx.Controller;
 
 import com.example.finx.ExploreApplication;
-import com.example.finx.Model.UserDB;
+import com.example.finx.HistoryApplication;
+import com.example.finx.Model.UserDatabase;
 import com.example.finx.Others.DBHandler;
 import com.example.finx.Others.FinnhubHandler;
 import javafx.application.Platform;
@@ -14,6 +15,9 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -146,65 +150,116 @@ public class HomeController {
 
     private Double[][] stockPricesFinnHub;
 
+    private Thread stockUpdateThread;
+
+    private ExecutorService executorService;
+
     @FXML
     void onConfirmPurchaseClicked(MouseEvent event) throws IOException {
-        if(bStock.isSelected()){
-            UserDB db = DBHandler.loadUsers();
-            db.findUserByUsername(DBHandler.getCurrentUser().getUsername()).buy(orderSymbol.getText(), Integer.parseInt(orderQty.getText()), FinnhubHandler.getStockPrice(orderSymbol.getText())[0]);
-            DBHandler.printUsers(db);
+        ArrayList<String> updatedSymbols = new ArrayList<String>(List.of(symbols));
+        updatedSymbols.add("BTC");
+        updatedSymbols.add("ETH");
+        if(!updatedSymbols.contains(orderSymbol.getText()) || !orderQty.getText().matches("\\d+")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Invalid Symbol or Quantity");
+            alert.show();
         }
-        if(sStock.isSelected()){
-            UserDB db = DBHandler.loadUsers();
-            db.findUserByUsername(DBHandler.getCurrentUser().getUsername()).sell(orderSymbol.getText(), Integer.parseInt(orderQty.getText()), FinnhubHandler.getStockPrice(orderSymbol.getText())[0]);
-            DBHandler.printUsers(db);
-        }
-        double change = 0.0;
-        double accValueDouble = 0.0;
-        for(int i=0; i<8; i++){
-            if(symbols[i].equals(orderSymbol.getText())){
-                stockPricesFinnHub[i] = FinnhubHandler.getStockPrice(symbols[i]);
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Are you sure?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Double[] finnhubRes = new Double[3];
+                String orderSymbolParsed = "";
+                if (orderSymbol.getText().equals("BTC")) {
+                    orderSymbolParsed = "BINANCE:BTCUSDT";
+                } else if (orderSymbol.getText().equals("ETH")) {
+                    orderSymbolParsed = "BINANCE:ETHUSDT";
+                } else {
+                    orderSymbolParsed = orderSymbol.getText();
+                }
+                for (int i = 0; i < 8; i++) {
+                    if (symbols[i].equals(orderSymbolParsed)) {
+                        stockPricesFinnHub[i] = FinnhubHandler.getStockPrice(symbols[i]);
+                        finnhubRes = stockPricesFinnHub[i];
+                    }
+                }
+                boolean transactionSuccess = true;
+                if (bStock.isSelected()) {
+                    UserDatabase db = DBHandler.loadUsers();
+                    transactionSuccess = db.find(DBHandler.getCurrentUser().getUsername()).buy(orderSymbolParsed, Integer.parseInt(orderQty.getText()), finnhubRes[0]);
+                    DBHandler.printUsers(db);
+                }
+                if (sStock.isSelected()) {
+                    UserDatabase db = DBHandler.loadUsers();
+                    transactionSuccess = db.find(DBHandler.getCurrentUser().getUsername()).sell(orderSymbolParsed, Integer.parseInt(orderQty.getText()), finnhubRes[0]);
+                    DBHandler.printUsers(db);
+                }
+                if (!transactionSuccess) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Insufficient Cash or Holdings");
+                    alert.show();
+                } else {
+                    double change = 0.0;
+                    double accValueDouble = 0.0;
+                    for (int i = 0; i < 8; i++) {
+                        String holdingText = String.format("%d", DBHandler.getCurrentUser().getHoldings(symbols[i]));
+                        String valueText = String.format("$%.2f", DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0]);
+                        String profitText = String.format("$%.2f", stockPricesFinnHub[i][0]);
+                        accValueDouble += DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0];
+                        change += DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][1];
+                        holdings[i].setText(holdingText);
+                        values[i].setText(valueText);
+                        profits[i].setText(profitText);
+                        if (DBHandler.getCurrentUser().getHoldings(symbols[i]) == 0) {
+                            holdings[i].setStyle("-fx-text-fill: #8b8b8b;");
+                            values[i].setStyle("-fx-text-fill: #8b8b8b;");
+                        } else {
+                            holdings[i].setStyle("-fx-text-fill: white;");
+                            values[i].setStyle("-fx-text-fill: white;");
+                        }
+                        if (stockPricesFinnHub[i][1] > 0) {
+                            profits[i].setStyle("-fx-text-fill: #4bb543;");
+                        } else {
+                            profits[i].setStyle("-fx-text-fill: #b22222;");
+                        }
+                    }
+                    double finalAccValueDouble = accValueDouble + DBHandler.getCurrentUser().getBalance();
+                    double finalChange = change;
+                    accValue.setText(String.format("$%.2f", finalAccValueDouble));
+                    remCash.setText(String.format("$%.2f", DBHandler.getCurrentUser().getBalance()));
+                    todayChange.setText(String.format("%.2f", finalChange));
+                    if (finalChange > 0) {
+                        todayChange.setText("+" + todayChange.getText());
+                        todayChange.setStyle("-fx-text-fill: #4bb543;");
+                    }
+                    if (finalChange < 0) {
+                        todayChange.setStyle("-fx-text-fill: #b22222;");
+                    }
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("Success!");
+                    alert.show();
+                }
             }
-            String holdingText = String.format("%d", DBHandler.getCurrentUser().getHoldings(symbols[i]));
-            String valueText = String.format("$%.2f", DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0]);
-            String profitText = String.format("$%.2f", stockPricesFinnHub[i][0]);
-            accValueDouble+=DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0];
-            change+=DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][1];
-            int finalI = i;
-            holdings[finalI].setText(holdingText);
-            values[finalI].setText(valueText);
-            profits[finalI].setText(profitText);
-            if(DBHandler.getCurrentUser().getHoldings(symbols[i])==0){
-                holdings[finalI].setStyle("-fx-text-fill: #8b8b8b;");
-                values[finalI].setStyle("-fx-text-fill: #8b8b8b;");
-            }
-            else{
-                holdings[finalI].setStyle("-fx-text-fill: white;");
-                values[finalI].setStyle("-fx-text-fill: white;");
-            }
-            if(stockPricesFinnHub[finalI][1]>0){
-                profits[finalI].setStyle("-fx-text-fill: #4bb543;");
-            }
-            else{
-                profits[finalI].setStyle("-fx-text-fill: #b22222;");
-            }
-        }
-        double finalAccValueDouble = accValueDouble+DBHandler.getCurrentUser().getBalance();
-        double finalChange = change;
-        accValue.setText(String.format("$%.2f", finalAccValueDouble));
-        remCash.setText(String.format("$%.2f", DBHandler.getCurrentUser().getBalance()));
-        todayChange.setText(String.format("%.2f", finalChange));
-        if(finalChange>0){
-            todayChange.setText("+"+todayChange.getText());
-            todayChange.setStyle("-fx-text-fill: #4bb543;");
-        }
-        if(finalChange<0){
-            todayChange.setStyle("-fx-text-fill: #b22222;");
         }
     }
 
     @FXML
+    void onTransactionBtnClicked(MouseEvent event) throws IOException {
+        stockUpdateThread.interrupt();
+        executorService.shutdown();
+        executorService.shutdownNow();
+        HistoryApplication app = new HistoryApplication();
+        app.start(new Stage());
+        Stage primary = (Stage) this.exploreBtn.getScene().getWindow();
+        primary.close();
+    }
+
+    @FXML
     void onExploreBtnClicked(MouseEvent event) throws IOException {
-        DBHandler.setCurrentWindow("Explore");
+        stockUpdateThread.interrupt();
+        executorService.shutdown();
+        executorService.shutdownNow();
         ExploreApplication app = new ExploreApplication();
         app.start(new Stage());
         Stage primary = (Stage) this.exploreBtn.getScene().getWindow();
@@ -217,71 +272,68 @@ public class HomeController {
         values = new Label[]{aaplValue, msftValue, tslaValue, sbuxValue, nflxValue, metaValue, btcValue, ethValue};
         profits = new Label[]{aaplChange, msftChange, tslaChange, sbuxChange, nflxChange, metaChange, btcChange, ethChange};
         stockPricesFinnHub = new Double[8][3];
+        bStock.setSelected(true);
 
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService = Executors.newSingleThreadExecutor();
 
-        Thread stockUpdateThread = new Thread(new Runnable() {
+        stockUpdateThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
                     while(true) {
-                        if (DBHandler.getCurrentWindow().equals("Home")) {
-                            double change = 0.0;
-                            double accValueDouble = 0.0;
-                            for (int i = 0; i < 8; i++) {
-                                stockPricesFinnHub[i] = FinnhubHandler.getStockPrice(symbols[i]);
-                                String holdingText = String.format("%d", DBHandler.getCurrentUser().getHoldings(symbols[i]));
-                                String valueText = String.format("$%.2f", DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0]);
-                                String profitText = String.format("$%.2f", stockPricesFinnHub[i][0]);
-                                accValueDouble += DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0];
-                                change += DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][1];
-                                int finalI = i;
-
-                                Platform.runLater(() -> {
-                                    holdings[finalI].setText(holdingText);
-                                    values[finalI].setText(valueText);
-                                    profits[finalI].setText(profitText);
-                                    if (DBHandler.getCurrentUser().getHoldings(symbols[finalI]) == 0) {
-                                        holdings[finalI].setStyle("-fx-text-fill: #8b8b8b;");
-                                        values[finalI].setStyle("-fx-text-fill: #8b8b8b;");
-                                    } else {
-                                        holdings[finalI].setStyle("-fx-text-fill: white;");
-                                        values[finalI].setStyle("-fx-text-fill: white;");
-                                    }
-                                    if (stockPricesFinnHub[finalI][1] > 0) {
-                                        profits[finalI].setStyle("-fx-text-fill: #4bb543;");
-                                    } else {
-                                        profits[finalI].setStyle("-fx-text-fill: #b22222;");
-                                    }
-                                });
-                            }
-                            double finalAccValueDouble = accValueDouble + DBHandler.getCurrentUser().getBalance();
-                            double finalChange = change;
+                        double change = 0.0;
+                        double accValueDouble = 0.0;
+                        for (int i = 0; i < 8; i++) {
+                            stockPricesFinnHub[i] = FinnhubHandler.getStockPrice(symbols[i]);
+                            System.out.println(2);
+                            String holdingText = String.format("%d", DBHandler.getCurrentUser().getHoldings(symbols[i]));
+                            String valueText = String.format("$%.2f", DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0]);
+                            String profitText = String.format("$%.2f", stockPricesFinnHub[i][0]);
+                            accValueDouble += DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0];
+                            change += DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][1];
+                            int finalI = i;
                             Platform.runLater(() -> {
-                                accValue.setText(String.format("$%.2f", finalAccValueDouble));
-                                remCash.setText(String.format("$%.2f", DBHandler.getCurrentUser().getBalance()));
-                                todayChange.setText(String.format("%.2f", finalChange));
-                                if (finalChange > 0) {
-                                    todayChange.setText("+" + todayChange.getText());
-                                    todayChange.setStyle("-fx-text-fill: #4bb543;");
+                                holdings[finalI].setText(holdingText);
+                                values[finalI].setText(valueText);
+                                profits[finalI].setText(profitText);
+                                if (DBHandler.getCurrentUser().getHoldings(symbols[finalI]) == 0) {
+                                    holdings[finalI].setStyle("-fx-text-fill: #8b8b8b;");
+                                    values[finalI].setStyle("-fx-text-fill: #8b8b8b;");
+                                } else {
+                                    holdings[finalI].setStyle("-fx-text-fill: white;");
+                                    values[finalI].setStyle("-fx-text-fill: white;");
                                 }
-                                if (finalChange < 0) {
-                                    todayChange.setStyle("-fx-text-fill: #b22222;");
+                                if (stockPricesFinnHub[finalI][1] > 0) {
+                                    profits[finalI].setStyle("-fx-text-fill: #4bb543;");
+                                } else {
+                                    profits[finalI].setStyle("-fx-text-fill: #b22222;");
                                 }
                             });
-                            Thread.sleep(15000);
                         }
-                        else{
-                            Thread.sleep(5000);
-                        }
+                        double finalAccValueDouble = accValueDouble + DBHandler.getCurrentUser().getBalance();
+                        double finalChange = change;
+                        Platform.runLater(() -> {
+                            accValue.setText(String.format("$%.2f", finalAccValueDouble));
+                            remCash.setText(String.format("$%.2f", DBHandler.getCurrentUser().getBalance()));
+                            todayChange.setText(String.format("%.2f", finalChange));
+                            if (finalChange > 0) {
+                                todayChange.setText("+" + todayChange.getText());
+                                todayChange.setStyle("-fx-text-fill: #4bb543;");
+                            }
+                            if (finalChange < 0) {
+                                todayChange.setStyle("-fx-text-fill: #b22222;");
+                            }
+                        });
+                        Thread.sleep(15000);
                     }
-                } catch (IOException | InterruptedException e) {
+                } catch (IOException e) {
                     throw new RuntimeException(e);
+                } catch (InterruptedException e){
+                    System.out.println("Interrupted");
                 }
             }
         });
         executorService.execute(stockUpdateThread);
-        stockUpdateThread.setDaemon(true);
     }
 
 }

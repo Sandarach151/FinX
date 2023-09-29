@@ -113,7 +113,7 @@
                                 </Label>
                             </children>
                         </GridPane>
-                        <Button fx:id="transactHistory" alignment="CENTER" mnemonicParsing="false" prefHeight="51.0" prefWidth="242.0" text="Transaction History" textFill="WHITE" GridPane.rowIndex="2">
+                        <Button fx:id="transactHistory" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#onTransactionBtnClicked" prefHeight="51.0" prefWidth="242.0" text="Transaction History" textFill="WHITE" GridPane.rowIndex="2">
                             <font>
                                 <Font size="22.0" />
                             </font>

@@ -4,7 +4,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 
-public class User {
+public class User implements Trader{
     private String username;
 
     private String password;
@@ -89,7 +89,7 @@ public class User {
         this.password = password;
     }
 
-    public Double getBalance() {
+    public double getBalance() {
         return balance;
     }
 

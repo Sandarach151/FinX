@@ -1,7 +1,7 @@
 package com.example.finx.Others;
 
 import com.example.finx.Model.User;
-import com.example.finx.Model.UserDB;
+import com.example.finx.Model.UserDatabase;
 import com.example.finx.Model.Stock;
 
 import java.io.*;
@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DBHandler {
-    private static final String USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/users.csv";
+    private static final String USER_FILE_PATH = System.getProperty("user.dir") + "/users.csv";
 
-    private static final String CURRENT_USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentUser.csv";
+    private static final String CURRENT_USER_FILE_PATH = System.getProperty("user.dir") + "/currentUser.csv";
 
-    private static final String CURRENT_WINDOW_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentWindow.csv";
-
-    public static UserDB loadUsers() {
-        UserDB database = new UserDB();
+    public static UserDatabase loadUsers() {
+        UserDatabase database = new UserDatabase();
         try {
             Scanner scanner = new Scanner(new File(USER_FILE_PATH));
             while (scanner.hasNextLine()) {
@@ -36,7 +34,7 @@ public class DBHandler {
                     if(!stockString.equals("")) stocks.add(Stock.fromString(stockString));
                 }
                 User user = new User(username, password, balance, stocks);
-                database.addUser(user);
+                database.add(user);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -47,7 +45,7 @@ public class DBHandler {
 
     public static boolean insertUser(String username, String password, Double balance, ArrayList<Stock> stocks){
         try {
-            if(loadUsers().findUserByUsername(username)==null) {
+            if(loadUsers().find(username)==null) {
                 FileWriter fileWriter = new FileWriter(USER_FILE_PATH, true); // Append mode
                 PrintWriter printWriter = new PrintWriter(fileWriter);
 
@@ -87,7 +85,7 @@ public class DBHandler {
         try {
             Scanner scanner = new Scanner(new File(CURRENT_USER_FILE_PATH));
             if(scanner.hasNext()){
-                currentUser = DBHandler.loadUsers().findUserByUsername(scanner.next());
+                currentUser = DBHandler.loadUsers().find(scanner.next());
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -96,7 +94,7 @@ public class DBHandler {
         return currentUser;
     }
 
-    public static void printUsers(UserDB database){
+    public static void printUsers(UserDatabase database){
         try {
             FileWriter fileWriter = new FileWriter(USER_FILE_PATH); // Append mode
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -106,32 +104,6 @@ public class DBHandler {
             e.printStackTrace();
         }
     }
-
-    public static String getCurrentWindow(){
-        String currentWindow = null;
-        try {
-            Scanner scanner = new Scanner(new File(CURRENT_WINDOW_FILE_PATH));
-            if(scanner.hasNext()){
-                currentWindow = scanner.next();
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not Found!");
-        }
-        return currentWindow;
-    }
-
-    public static void setCurrentWindow(String window){
-        try {
-            FileWriter fileWriter = new FileWriter(CURRENT_WINDOW_FILE_PATH);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.println(window);
-            printWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
 
 

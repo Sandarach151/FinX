@@ -1,5 +1,6 @@
 package com.example.finx.Controller;
 
+import com.example.finx.HomeApplication;
 import com.example.finx.Others.DBHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -14,8 +15,13 @@ import javafx.scene.layout.HBox;
 import com.example.finx.Model.*;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class HistoryController {
 
@@ -38,12 +44,16 @@ public class HistoryController {
     private HBox topHbox;
 
     @FXML
-    void onHomeBtnClicked(MouseEvent event) {
-
+    void onHomeBtnClicked(MouseEvent event) throws IOException {
+        HomeApplication app = new HomeApplication();
+        app.start(new Stage());
+        Stage primary = (Stage) this.homeBtn.getScene().getWindow();
+        primary.close();
     }
 
     public void initialize() {
         ArrayList<Stock> transactions = DBHandler.getCurrentUser().getStocks();
+        Collections.reverse(transactions);
         for (int i = 0; i < transactions.size(); i++) {
             Stock stock = transactions.get(i);
             Label symbol = new Label(stock.getSymbol());
@@ -52,13 +62,13 @@ public class HistoryController {
             Label quantity = new Label(stock.getAmt() + "");
             quantity.setFont(new Font(15));
             quantity.setPadding(new Insets(0, 0, 0, 15));
-            Label bs = new Label(stock.getBS() + "");
+            Label bs = new Label((stock.getBS().equals('B') ? "Buy" : "Sell"));
             bs.setFont(new Font(15));
             bs.setPadding(new Insets(0, 0, 0, 15));
             Label price = new Label(String.format("$%.2f", stock.getPrice()));
             price.setFont(new Font(15));
             price.setPadding(new Insets(0, 0, 0, 15));
-            Label date = new Label(stock.getTransactionDate().format(DateTimeFormatter));
+            Label date = new Label(stock.getTransactionDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
             date.setFont(new Font(15));
             date.setPadding(new Insets(0, 0, 0, 15));
             stockTable.getRowConstraints().add(new RowConstraints(40));

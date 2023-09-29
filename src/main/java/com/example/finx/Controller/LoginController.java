@@ -2,9 +2,8 @@ package com.example.finx.Controller;
 
 import com.example.finx.HomeApplication;
 import com.example.finx.Others.DBHandler;
-import com.example.finx.ExploreApplication;
 import com.example.finx.SignupApplication;
-import javafx.application.Application;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -21,18 +20,19 @@ public class LoginController {
     public Button signUpBtn;
 
     public void onLoginBtnClicked(MouseEvent mouseEvent) throws IOException {
-        UserDB database = DBHandler.loadUsers();
-        if(database.findUserByUsername(usernameText.getText())!=null && database.findUserByUsername(usernameText.getText()).getPassword().equals(passwordField.getText())){
+        UserDatabase database = DBHandler.loadUsers();
+        if(database.find(usernameText.getText())!=null && database.find(usernameText.getText()).getPassword().equals(passwordField.getText())){
             System.out.println("Login Successful");
             DBHandler.setCurrentUser(usernameText.getText());
-            DBHandler.setCurrentWindow("Home");
             HomeApplication app = new HomeApplication();
             app.start(new Stage());
             Stage primary = (Stage) this.signUpBtn.getScene().getWindow();
             primary.close();
         }
         else{
-            System.out.println("Login Unsuccessful");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Invalid Username or Password");
+            alert.show();
         }
     }
 

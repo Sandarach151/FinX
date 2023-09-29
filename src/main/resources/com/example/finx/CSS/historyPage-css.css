@@ -15,7 +15,7 @@
 }
 
 #topHbox{
-    -fx-border-color: black black rgb(148, 148, 148) black;
+    -fx-border-color: #121212 #121212 rgb(148, 148, 148) #121212;
 }
 
 #stockScrollPane{
