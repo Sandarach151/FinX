@@ -2,6 +2,7 @@ package com.example.finx.Controller;
 
 import com.example.finx.ExploreApplication;
 import com.example.finx.HomeApplication;
+import com.example.finx.Others.DBHandler;
 import com.example.finx.Others.FinnhubHandler;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -119,6 +120,7 @@ public class ExploreController {
 
     @FXML
     void onPortfolioBtnClicked(MouseEvent event) throws IOException {
+        DBHandler.setCurrentWindow("Home");
         HomeApplication app = new HomeApplication();
         app.start(new Stage());
         Stage primary = (Stage) this.portfolioBtn.getScene().getWindow();
@@ -137,48 +139,53 @@ public class ExploreController {
             @Override
             public void run() {
                 try{
-                    while(true){
-                        for (int i = 0; i < 8; i++) {
-                            Double[] curResult = FinnhubHandler.getStockPrice(symbols[i]);
-                            String percentText = String.format("%.2f%%", curResult[2]);
-                            String numText = String.format("%.2f", curResult[1]);
-                            String priceText = String.format("%.2f", curResult[0]);
+                    while(true) {
+                        if (DBHandler.getCurrentWindow().equals("Explore")) {
+                            for (int i = 0; i < 8; i++) {
+                                Double[] curResult = FinnhubHandler.getStockPrice(symbols[i]);
+                                String percentText = String.format("%.2f%%", curResult[2]);
+                                String numText = String.format("%.2f", curResult[1]);
+                                String priceText = String.format("%.2f", curResult[0]);
 
-                            int finalI = i;
+                                int finalI = i;
+                                Platform.runLater(() -> {
+                                    // Update UI components using Platform.runLater()
+                                    percents[finalI].setText(curResult[2] > 0 ? "+" + percentText : percentText);
+                                    percents[finalI].setStyle(curResult[2] > 0 ? "-fx-text-fill: #4bb543;" : "-fx-text-fill: #b22222;");
+                                    nums[finalI].setText(curResult[2] > 0 ? "+" + numText : numText);
+                                    nums[finalI].setStyle(curResult[2] > 0 ? "-fx-text-fill: #4bb543;" : "-fx-text-fill: #b22222;");
+                                    prices[finalI].setText(priceText);
+                                });
+                            }
+                            String[] news = FinnhubHandler.getRandNews();
+                            System.out.println(Arrays.toString(news));
+                            try {
+                                Image image = new Image(news[2]);
+                                newsImage.setImage(image);
+                                newsImage.setPreserveRatio(true);
+                                newsImage.setSmooth(true);
+                            } catch (IllegalArgumentException e) {
+                                Image image2 = new Image("https://www.adviserinvestments.com/wp-content/uploads/are-stocks-overpriced-stocks-overpriced.jpg.webp");
+                                newsImage.setImage(image2);
+                            }
+                            String headline = news[1];
+                            Instant instant = Instant.ofEpochSecond(Integer.parseInt(news[0]));
+                            Date date = Date.from(instant);
+                            String dateString = date.toString();
+                            String newsURLText = news[3];
+
                             Platform.runLater(() -> {
                                 // Update UI components using Platform.runLater()
-                                percents[finalI].setText(curResult[2] > 0 ? "+" + percentText : percentText);
-                                percents[finalI].setStyle(curResult[2] > 0 ? "-fx-text-fill: #4bb543;" : "-fx-text-fill: #b22222;");
-                                nums[finalI].setText(curResult[2] > 0 ? "+" + numText : numText);
-                                nums[finalI].setStyle(curResult[2] > 0 ? "-fx-text-fill: #4bb543;" : "-fx-text-fill: #b22222;");
-                                prices[finalI].setText(priceText);
+                                headlineLabel.setText(headline);
+                                dateLabel.setText(dateString);
+                                newsURL.setText(newsURLText);
+                                newsURL.setVisited(false);
                             });
+                            Thread.sleep(15000);
                         }
-                        String[] news = FinnhubHandler.getRandNews();
-                        System.out.println(Arrays.toString(news));
-                        try {
-                            Image image = new Image(news[2]);
-                            newsImage.setImage(image);
-                            newsImage.setPreserveRatio(true);
-                            newsImage.setSmooth(true);
-                        } catch (IllegalArgumentException e) {
-                            Image image2 = new Image("https://www.adviserinvestments.com/wp-content/uploads/are-stocks-overpriced-stocks-overpriced.jpg.webp");
-                            newsImage.setImage(image2);
+                        else{
+                            Thread.sleep(5000);
                         }
-                        String headline = news[1];
-                        Instant instant = Instant.ofEpochSecond(Integer.parseInt(news[0]));
-                        Date date = Date.from(instant);
-                        String dateString = date.toString();
-                        String newsURLText = news[3];
-
-                        Platform.runLater(() -> {
-                            // Update UI components using Platform.runLater()
-                            headlineLabel.setText(headline);
-                            dateLabel.setText(dateString);
-                            newsURL.setText(newsURLText);
-                            newsURL.setVisited(false);
-                        });
-                        Thread.sleep(15000);
                     }
                 } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);

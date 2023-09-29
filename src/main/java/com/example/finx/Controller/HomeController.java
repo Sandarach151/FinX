@@ -204,6 +204,7 @@ public class HomeController {
 
     @FXML
     void onExploreBtnClicked(MouseEvent event) throws IOException {
+        DBHandler.setCurrentWindow("Explore");
         ExploreApplication app = new ExploreApplication();
         app.start(new Stage());
         Stage primary = (Stage) this.exploreBtn.getScene().getWindow();
@@ -223,53 +224,56 @@ public class HomeController {
             @Override
             public void run() {
                 try{
-                    while(true){
-                        double change = 0.0;
-                        double accValueDouble = 0.0;
-                        for(int i=0; i<8; i++){
-                            stockPricesFinnHub[i] = FinnhubHandler.getStockPrice(symbols[i]);
-                            String holdingText = String.format("%d", DBHandler.getCurrentUser().getHoldings(symbols[i]));
-                            String valueText = String.format("$%.2f", DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0]);
-                            String profitText = String.format("$%.2f", stockPricesFinnHub[i][0]);
-                            accValueDouble+=DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0];
-                            change+=DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][1];
-                            int finalI = i;
+                    while(true) {
+                        if (DBHandler.getCurrentWindow().equals("Home")) {
+                            double change = 0.0;
+                            double accValueDouble = 0.0;
+                            for (int i = 0; i < 8; i++) {
+                                stockPricesFinnHub[i] = FinnhubHandler.getStockPrice(symbols[i]);
+                                String holdingText = String.format("%d", DBHandler.getCurrentUser().getHoldings(symbols[i]));
+                                String valueText = String.format("$%.2f", DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0]);
+                                String profitText = String.format("$%.2f", stockPricesFinnHub[i][0]);
+                                accValueDouble += DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0];
+                                change += DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][1];
+                                int finalI = i;
 
+                                Platform.runLater(() -> {
+                                    holdings[finalI].setText(holdingText);
+                                    values[finalI].setText(valueText);
+                                    profits[finalI].setText(profitText);
+                                    if (DBHandler.getCurrentUser().getHoldings(symbols[finalI]) == 0) {
+                                        holdings[finalI].setStyle("-fx-text-fill: #8b8b8b;");
+                                        values[finalI].setStyle("-fx-text-fill: #8b8b8b;");
+                                    } else {
+                                        holdings[finalI].setStyle("-fx-text-fill: white;");
+                                        values[finalI].setStyle("-fx-text-fill: white;");
+                                    }
+                                    if (stockPricesFinnHub[finalI][1] > 0) {
+                                        profits[finalI].setStyle("-fx-text-fill: #4bb543;");
+                                    } else {
+                                        profits[finalI].setStyle("-fx-text-fill: #b22222;");
+                                    }
+                                });
+                            }
+                            double finalAccValueDouble = accValueDouble + DBHandler.getCurrentUser().getBalance();
+                            double finalChange = change;
                             Platform.runLater(() -> {
-                                holdings[finalI].setText(holdingText);
-                                values[finalI].setText(valueText);
-                                profits[finalI].setText(profitText);
-                                if(DBHandler.getCurrentUser().getHoldings(symbols[finalI])==0){
-                                    holdings[finalI].setStyle("-fx-text-fill: #8b8b8b;");
-                                    values[finalI].setStyle("-fx-text-fill: #8b8b8b;");
+                                accValue.setText(String.format("$%.2f", finalAccValueDouble));
+                                remCash.setText(String.format("$%.2f", DBHandler.getCurrentUser().getBalance()));
+                                todayChange.setText(String.format("%.2f", finalChange));
+                                if (finalChange > 0) {
+                                    todayChange.setText("+" + todayChange.getText());
+                                    todayChange.setStyle("-fx-text-fill: #4bb543;");
                                 }
-                                else{
-                                    holdings[finalI].setStyle("-fx-text-fill: white;");
-                                    values[finalI].setStyle("-fx-text-fill: white;");
-                                }
-                                if(stockPricesFinnHub[finalI][1]>0){
-                                    profits[finalI].setStyle("-fx-text-fill: #4bb543;");
-                                }
-                                else{
-                                    profits[finalI].setStyle("-fx-text-fill: #b22222;");
+                                if (finalChange < 0) {
+                                    todayChange.setStyle("-fx-text-fill: #b22222;");
                                 }
                             });
+                            Thread.sleep(15000);
                         }
-                        double finalAccValueDouble = accValueDouble+DBHandler.getCurrentUser().getBalance();
-                        double finalChange = change;
-                        Platform.runLater(() -> {
-                            accValue.setText(String.format("$%.2f", finalAccValueDouble));
-                            remCash.setText(String.format("$%.2f", DBHandler.getCurrentUser().getBalance()));
-                            todayChange.setText(String.format("%.2f", finalChange));
-                            if(finalChange>0){
-                                todayChange.setText("+"+todayChange.getText());
-                                todayChange.setStyle("-fx-text-fill: #4bb543;");
-                            }
-                            if(finalChange<0){
-                                todayChange.setStyle("-fx-text-fill: #b22222;");
-                            }
-                        });
-                        Thread.sleep(15000);
+                        else{
+                            Thread.sleep(5000);
+                        }
                     }
                 } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);

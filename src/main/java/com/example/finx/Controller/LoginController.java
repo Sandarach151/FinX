@@ -25,6 +25,7 @@ public class LoginController {
         if(database.findUserByUsername(usernameText.getText())!=null && database.findUserByUsername(usernameText.getText()).getPassword().equals(passwordField.getText())){
             System.out.println("Login Successful");
             DBHandler.setCurrentUser(usernameText.getText());
+            DBHandler.setCurrentWindow("Home");
             HomeApplication app = new HomeApplication();
             app.start(new Stage());
             Stage primary = (Stage) this.signUpBtn.getScene().getWindow();

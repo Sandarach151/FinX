@@ -1,0 +1,24 @@
+#page{
+    -fx-background-color: #121212;
+}
+
+#homeBtn{
+    -fx-background-color: #00308f;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+#homeBtn:hover{
+    -fx-background-color: #00308fab;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+#topHbox{
+    -fx-border-color: black black rgb(148, 148, 148) black;
+}
+
+#stockScrollPane{
+    -fx-background: #121212;
+    -fx-border-color: #121212;
+}

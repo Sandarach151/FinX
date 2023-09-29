@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/historyPage-css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finx.Controller.HistoryController">
+    <children>
+        <BorderPane layoutX="200.0" layoutY="119.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <HBox fx:id="topHbox" prefHeight="80.0" prefWidth="860.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="ExploreBanner" prefHeight="108.0" prefWidth="727.0" text="Transaction History" textFill="WHITE">
+                            <font>
+                                <Font name="Agency FB" size="50.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="homeBtn" mnemonicParsing="false" onMouseClicked="#onHomeBtnClicked" prefHeight="58.0" prefWidth="155.0" text="Home" textFill="WHITE">
+                            <font>
+                                <Font size="26.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets left="20.0" right="20.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </top>
+         <center>
+            <ScrollPane fx:id="stockScrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <content>
+                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="837.0">
+                     <children>
+                        <GridPane fx:id="stockTable" gridLinesVisible="true" layoutY="1.0" prefHeight="61.0" prefWidth="831.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="142.3333282470703" minWidth="10.0" prefWidth="142.3333282470703" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="145.6666717529297" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.00003051757812" minWidth="10.0" prefWidth="140.5" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.99996948242188" minWidth="10.0" prefWidth="142.6666259765625" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.3333740234375" minWidth="10.0" prefWidth="211.3333740234375" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label alignment="CENTER" prefHeight="114.0" prefWidth="286.0" text="Symbol" textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="114.0" prefWidth="286.0" text="Quantity" textFill="WHITE" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="224.0" layoutY="10.0" prefHeight="114.0" prefWidth="286.0" text="Buy \ Sell" textFill="WHITE" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="353.0" layoutY="10.0" prefHeight="114.0" prefWidth="286.0" text="Price" textFill="WHITE" GridPane.columnIndex="3">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="524.0" layoutY="10.0" prefHeight="114.0" prefWidth="286.0" text="Date" textFill="WHITE" GridPane.columnIndex="4">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+            </ScrollPane>
+         </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

@@ -13,6 +13,8 @@ public class DBHandler {
 
     private static final String CURRENT_USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentUser.csv";
 
+    private static final String CURRENT_WINDOW_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentWindow.csv";
+
     public static UserDB loadUsers() {
         UserDB database = new UserDB();
         try {
@@ -102,6 +104,31 @@ public class DBHandler {
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static String getCurrentWindow(){
+        String currentWindow = null;
+        try {
+            Scanner scanner = new Scanner(new File(CURRENT_WINDOW_FILE_PATH));
+            if(scanner.hasNext()){
+                currentWindow = scanner.next();
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not Found!");
+        }
+        return currentWindow;
+    }
+
+    public static void setCurrentWindow(String window){
+        try {
+            FileWriter fileWriter = new FileWriter(CURRENT_WINDOW_FILE_PATH);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println(window);
+            printWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
