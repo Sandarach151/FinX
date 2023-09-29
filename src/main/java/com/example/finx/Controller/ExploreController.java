@@ -107,9 +107,6 @@ public class ExploreController {
     private Label ethPrice;
 
     @FXML
-    private ImageView newsImage;
-
-    @FXML
     private Label headlineLabel;
 
     @FXML
@@ -131,6 +128,11 @@ public class ExploreController {
         app.start(new Stage());
         Stage primary = (Stage) this.portfolioBtn.getScene().getWindow();
         primary.close();
+    }
+
+    @FXML
+    void showAbout(MouseEvent event) {
+
     }
 
     public void initialize() throws IOException {
@@ -165,15 +167,6 @@ public class ExploreController {
                         String[] news = FinnhubHandler.getRandNews();
                         System.out.println(3);
                         System.out.println(Arrays.toString(news));
-                        try {
-                            Image image = new Image(news[2]);
-                            newsImage.setImage(image);
-                            newsImage.setPreserveRatio(true);
-                            newsImage.setSmooth(true);
-                        } catch (IllegalArgumentException e) {
-                            Image image2 = new Image("https://www.adviserinvestments.com/wp-content/uploads/are-stocks-overpriced-stocks-overpriced.jpg.webp");
-                            newsImage.setImage(image2);
-                        }
                         String headline = news[1];
                         Instant instant = Instant.ofEpochSecond(Integer.parseInt(news[0]));
                         Date date = Date.from(instant);
