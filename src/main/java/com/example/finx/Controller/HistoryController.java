@@ -63,6 +63,7 @@ public class HistoryController {
             quantity.setFont(new Font(15));
             quantity.setPadding(new Insets(0, 0, 0, 15));
             Label bs = new Label((stock.getBS().equals('B') ? "Buy" : "Sell"));
+            bs.setStyle((stock.getBS().equals('B') ? "-fx-text-fill: #4bb543" : "-fx-text-fill: #b22222"));
             bs.setFont(new Font(15));
             bs.setPadding(new Insets(0, 0, 0, 15));
             Label price = new Label(String.format("$%.2f", stock.getPrice()));

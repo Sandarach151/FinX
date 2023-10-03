@@ -59,4 +59,9 @@ public class FinnhubHandler {
         return ans;
     }
 
+    public static ArrayList<Double[]> getCandles(String symbol) throws IOException {
+        String result = sendGET(String.format("https://finnhub.io/api/v1/stock/candle?symbol=%s&resolution=D&from=%d&to=%d&token=cjap77hr01qji1gtqj3gcjap77hr01qji1gtqj40", symbol, Instant.now().getEpochSecond()-28930000, Instant.now().getEpochSecond()));
+        return new ArrayList<>();
+    }
+
 }

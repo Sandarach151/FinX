@@ -180,7 +180,7 @@ public class HomeController {
                 }
                 for (int i = 0; i < 8; i++) {
                     if (symbols[i].equals(orderSymbolParsed)) {
-                        stockPricesFinnHub[i] = FinnhubHandler.getStockPrice(symbols[i]);
+                        stockPricesFinnHub[i] = DBHandler.getStockPrice(symbols[i]);
                         finnhubRes = stockPricesFinnHub[i];
                     }
                 }
@@ -284,8 +284,7 @@ public class HomeController {
                         double change = 0.0;
                         double accValueDouble = 0.0;
                         for (int i = 0; i < 8; i++) {
-                            stockPricesFinnHub[i] = FinnhubHandler.getStockPrice(symbols[i]);
-                            System.out.println(2);
+                            stockPricesFinnHub[i] = DBHandler.getStockPrice(symbols[i]);
                             String holdingText = String.format("%d", DBHandler.getCurrentUser().getHoldings(symbols[i]));
                             String valueText = String.format("$%.2f", DBHandler.getCurrentUser().getHoldings(symbols[i]) * stockPricesFinnHub[i][0]);
                             String profitText = String.format("$%.2f", stockPricesFinnHub[i][0]);
@@ -326,8 +325,6 @@ public class HomeController {
                         });
                         Thread.sleep(15000);
                     }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 } catch (InterruptedException e){
                     System.out.println("Interrupted");
                 }

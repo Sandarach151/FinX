@@ -151,8 +151,7 @@ public class ExploreController {
                 try{
                     while(true) {
                         for (int i = 0; i < 8; i++) {
-                            Double[] curResult = FinnhubHandler.getStockPrice(symbols[i]);
-                            System.out.println(4);
+                            Double[] curResult = DBHandler.getStockPrice(symbols[i]);
                             String percentText = String.format("%.2f%%", curResult[2]);
                             String numText = String.format("%.2f", curResult[1]);
                             String priceText = String.format("%.2f", curResult[0]);
@@ -167,7 +166,6 @@ public class ExploreController {
                             });
                         }
                         String[] news = FinnhubHandler.getRandNews();
-                        System.out.println(3);
                         System.out.println(Arrays.toString(news));
                         String headline = news[1];
                         Instant instant = Instant.ofEpochSecond(Integer.parseInt(news[0]));
