@@ -16,4 +16,5 @@ module com.example.finx {
     opens com.example.finx.Controller to javafx.fxml;
     exports com.example.finx.Others;
     opens com.example.finx.Others to javafx.fxml;
+    opens com.example.finx.Model to javafx.fxml;
 }

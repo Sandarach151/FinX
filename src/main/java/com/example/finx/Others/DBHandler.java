@@ -16,6 +16,8 @@ public class DBHandler {
 
     private static final String CURRENT_PRICES_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentPrices.csv";
 
+    private static final String CURRENT_STOCK_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentStock.csv";
+
 //    private static final String USER_FILE_PATH = System.getProperty("user.dir") + "/users.csv";
 //
 //    private static final String CURRENT_USER_FILE_PATH = System.getProperty("user.dir") + "/currentUser.csv";
@@ -99,6 +101,31 @@ public class DBHandler {
             System.out.println("File not Found!");
         }
         return currentUser;
+    }
+
+    public static void setCurrentStock(String symbol){
+        try {
+            FileWriter fileWriter = new FileWriter(CURRENT_STOCK_FILE_PATH);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println(symbol);
+            printWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getCurrentStock(){
+        String currentStock = "";
+        try {
+            Scanner scanner = new Scanner(new File(CURRENT_STOCK_FILE_PATH));
+            if(scanner.hasNext()){
+                currentStock = scanner.next();
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not Found!");
+        }
+        return currentStock;
     }
 
     public static void printUsers(UserDatabase database){

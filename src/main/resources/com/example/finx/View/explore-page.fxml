@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/explorePage-css.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finx.Controller.ExploreController">
+<AnchorPane fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/explorePage-css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finx.Controller.ExploreController">
    <children>
       <BorderPane layoutX="200.0" layoutY="119.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -60,7 +60,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Pane fx:id="AAPLpane" prefHeight="107.0" prefWidth="195.0" styleClass="stockPane">
+                        <Pane fx:id="AAPLpane" onMouseClicked="#showAPPLview" prefHeight="107.0" prefWidth="195.0" styleClass="stockPane">
                            <children>
                               <Label layoutX="13.0" layoutY="7.0" prefHeight="40.0" prefWidth="80.0" text="AAPL" textFill="WHITE">
                                  <font>

@@ -1,27 +1,18 @@
 package com.example.finx.Controller;
 
 import com.example.finx.AboutApplication;
-import com.example.finx.ExploreApplication;
 import com.example.finx.HomeApplication;
+import com.example.finx.Model.NewsArticle;
 import com.example.finx.Others.DBHandler;
 import com.example.finx.Others.FinnhubHandler;
+import com.example.finx.StockViewApplication;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.util.Duration;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -137,6 +128,18 @@ public class ExploreController {
         app.start(new Stage());
     }
 
+    @FXML
+    void showAPPLview(MouseEvent event) throws IOException {
+        stockUpdateThread.interrupt();
+        executorService.shutdown();
+        executorService.shutdownNow();
+        DBHandler.setCurrentStock("AAPL");
+        StockViewApplication app = new StockViewApplication();
+        app.start(new Stage());
+        Stage primary = (Stage) this.portfolioBtn.getScene().getWindow();
+        primary.close();
+    }
+
     public void initialize() throws IOException {
         String[] symbols = {"AAPL", "MSFT", "TSLA", "SBUX", "NFLX", "META", "BINANCE:BTCUSDT", "BINANCE:ETHUSDT"};
         Label[] percents = {aaplPercent, msftPercent, tslaPercent, sbuxPercent, nflxPercent, metaPercent, btcPercent, ethPercent};
@@ -165,26 +168,21 @@ public class ExploreController {
                                 prices[finalI].setText(priceText);
                             });
                         }
-                        String[] news = FinnhubHandler.getRandNews();
-                        System.out.println(Arrays.toString(news));
-                        String headline = news[1];
-                        Instant instant = Instant.ofEpochSecond(Integer.parseInt(news[0]));
-                        Date date = Date.from(instant);
-                        String dateString = date.toString();
-                        String newsURLText = news[3];
+                        NewsArticle news = FinnhubHandler.getRandNews();
+                        System.out.println(news);
                         Platform.runLater(() -> {
                             // Update UI components using Platform.runLater()
-                            headlineLabel.setText(headline);
-                            dateLabel.setText(dateString);
-                            newsURL.setText(newsURLText);
+                            headlineLabel.setText(news.getHeadline());
+                            dateLabel.setText(Date.from(news.getPublishTime()).toString());
+                            newsURL.setText(news.getUrl());
                             newsURL.setVisited(false);
                         });
                         Thread.sleep(15000);
                     }
-                } catch (IOException e){
-                    throw new RuntimeException(e);
                 } catch(InterruptedException e){
                     System.out.println("Interrupted");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }
         });

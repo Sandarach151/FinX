@@ -1,0 +1,27 @@
+#page{
+    -fx-background-color: #121212;
+}
+
+#exploreBtn{
+    -fx-background-color: #00308f;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+#exploreBtn:hover{
+    -fx-background-color: black;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+#topHbox{
+    -fx-border-color: #121212 #121212 rgb(148, 148, 148) #121212;
+}
+
+#newsListView{
+    -fx-background-color: rgb(48, 48, 48);
+}
+
+.list-cell{
+    -fx-background-color: black;
+}
