@@ -1,5 +1,6 @@
 package com.example.finx.Others;
 
+import com.example.finx.Model.Company;
 import com.example.finx.Model.CompanyNewsDatabase;
 import com.example.finx.Model.NewsArticle;
 import com.example.finx.Model.StockCandleChart;
@@ -12,13 +13,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Date;
 
 public class FinnhubHandler {
 
     private static final String USER_AGENT = "Mozilla/5.0";
 
     public static void main(String[] args) throws IOException {
-        System.out.println(getCompanyNews("AAPL").getNewsDB().get(0));
+        System.out.println(getCompanyInfo("AAPL"));
     }
 
     private static String sendGET(String GET_URL) throws IOException, IllegalArgumentException {
@@ -90,13 +93,12 @@ public class FinnhubHandler {
     }
 
     public static StockCandleChart getCandles(String symbol) throws IOException {
-        String result = sendGET(String.format("https://finnhub.io/api/v1/stock/candle?symbol=%s&resolution=D&from=%d&to=%d&token=cjap77hr01qji1gtqj3gcjap77hr01qji1gtqj40", symbol, Instant.now().getEpochSecond()-28930000, Instant.now().getEpochSecond()));
+        String result = sendGET(String.format("https://finnhub.io/api/v1/stock/candle?symbol=%s&resolution=W&from=%d&to=%d&token=cjap77hr01qji1gtqj3gcjap77hr01qji1gtqj40", symbol, Instant.now().getEpochSecond()-28930000, Instant.now().getEpochSecond()));
         String[] cur = result.split(",\"");
         cur[0] = cur[0].substring(2);
         cur[6] = cur[6].substring(0, cur[6].length()-1);
         for(int i=0; i<cur.length; i++){
             cur[i] = cur[i].substring(4, cur[i].length()-1);
-            System.out.println(cur[i]);
         }
         String[] rawClosePrices = cur[0].split(",");
         ArrayList<Double> closePrices = new ArrayList<>();
@@ -126,5 +128,35 @@ public class FinnhubHandler {
         return new StockCandleChart(closePrices, highPrices, lowPrices, openPrices, timestamps);
     }
 
+    public static Company getCompanyInfo(String symbol) throws IOException {
+        String result = sendGET(String.format("https://finnhub.io/api/v1/stock/profile2?symbol=%s&token=cjap77hr01qji1gtqj3gcjap77hr01qji1gtqj40", symbol));
+        String[] cur = result.split(",\"");
+        Company company = new Company();
+        company.setCountry(cur[0].substring(12, cur[0].length()-1));
+        company.setCurrency(cur[1].substring(11, cur[1].length()-1));
+        company.setExchange(cur[3].substring(11, cur[3].length()-1));
+        company.setIndustry(cur[4].substring(18, cur[4].length()-1));
+        company.setIpo(LocalDate.parse(cur[5].substring(6, cur[5].length()-1), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        company.setMarketCapitalisation(Double.parseDouble(cur[7].substring(22)));
+        company.setName(cur[8].substring(7, cur[8].length()-1));
+        company.setShareOutstanding(Double.parseDouble(cur[10].substring(18)));
+        company.setTicker(cur[11].substring(9, cur[11].length()-1));
+        company.setWeburl(cur[12].substring(9, cur[12].length()-2));
+        return company;
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

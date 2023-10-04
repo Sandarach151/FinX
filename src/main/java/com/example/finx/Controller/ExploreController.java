@@ -129,11 +129,71 @@ public class ExploreController {
     }
 
     @FXML
-    void showAPPLview(MouseEvent event) throws IOException {
+    void showAAPLview(MouseEvent event) throws IOException {
         stockUpdateThread.interrupt();
         executorService.shutdown();
         executorService.shutdownNow();
         DBHandler.setCurrentStock("AAPL");
+        StockViewApplication app = new StockViewApplication();
+        app.start(new Stage());
+        Stage primary = (Stage) this.portfolioBtn.getScene().getWindow();
+        primary.close();
+    }
+
+    @FXML
+    void showMSFTview(MouseEvent event) throws IOException {
+        stockUpdateThread.interrupt();
+        executorService.shutdown();
+        executorService.shutdownNow();
+        DBHandler.setCurrentStock("MSFT");
+        StockViewApplication app = new StockViewApplication();
+        app.start(new Stage());
+        Stage primary = (Stage) this.portfolioBtn.getScene().getWindow();
+        primary.close();
+    }
+
+    @FXML
+    void showTSLAview(MouseEvent event) throws IOException {
+        stockUpdateThread.interrupt();
+        executorService.shutdown();
+        executorService.shutdownNow();
+        DBHandler.setCurrentStock("TSLA");
+        StockViewApplication app = new StockViewApplication();
+        app.start(new Stage());
+        Stage primary = (Stage) this.portfolioBtn.getScene().getWindow();
+        primary.close();
+    }
+
+    @FXML
+    void showNFLXview(MouseEvent event) throws IOException {
+        stockUpdateThread.interrupt();
+        executorService.shutdown();
+        executorService.shutdownNow();
+        DBHandler.setCurrentStock("NFLX");
+        StockViewApplication app = new StockViewApplication();
+        app.start(new Stage());
+        Stage primary = (Stage) this.portfolioBtn.getScene().getWindow();
+        primary.close();
+    }
+
+    @FXML
+    void showSBUXview(MouseEvent event) throws IOException {
+        stockUpdateThread.interrupt();
+        executorService.shutdown();
+        executorService.shutdownNow();
+        DBHandler.setCurrentStock("SBUX");
+        StockViewApplication app = new StockViewApplication();
+        app.start(new Stage());
+        Stage primary = (Stage) this.portfolioBtn.getScene().getWindow();
+        primary.close();
+    }
+
+    @FXML
+    void showMETAview(MouseEvent event) throws IOException {
+        stockUpdateThread.interrupt();
+        executorService.shutdown();
+        executorService.shutdownNow();
+        DBHandler.setCurrentStock("META");
         StockViewApplication app = new StockViewApplication();
         app.start(new Stage());
         Stage primary = (Stage) this.portfolioBtn.getScene().getWindow();

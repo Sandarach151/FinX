@@ -19,9 +19,37 @@
 }
 
 #newsListView{
+    -fx-background-color: #121212;
+}
+
+.list-cell:even{
     -fx-background-color: rgb(48, 48, 48);
 }
 
-.list-cell{
-    -fx-background-color: black;
+.list-cell:odd{
+    -fx-background-color: rgb(27, 27, 27);
+}
+
+.list-cell:focus{
+    -fx-background-color: rgb(0, 0, 0);
+}
+
+.axis-label{
+    -fx-text-fill: white;
+}
+
+.chart-plot-background{
+    -fx-background-color: #121212;
+}
+
+.chart-vertical-grid-lines{
+    -fx-stroke: #313131
+}
+
+.chart-horizontal-grid-lines{
+    -fx-stroke: #313131
+}
+
+.chart-title{
+    -fx-text-fill: white;
 }
