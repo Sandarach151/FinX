@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -17,8 +18,10 @@ public class ExploreApplication extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LoginApplication.class.getResource("View/explore-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-        stage.setTitle("Hello!");
+        stage.setTitle("Explore");
         stage.setScene(scene);
+        stage.setResizable(false);
+        stage.getIcons().add(new Image(LoginApplication.class.getResourceAsStream("Images/Logo.png")));
         stage.show();
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override

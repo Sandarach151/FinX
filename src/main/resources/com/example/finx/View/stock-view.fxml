@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../CSS/stockView-css.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finx.Controller.StockViewController">
+<AnchorPane fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../CSS/stockView-css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finx.Controller.StockViewController">
     <children>
         <BorderPane layoutX="200.0" layoutY="119.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -59,7 +59,7 @@
                      <children>
                         <Label alignment="CENTER" prefHeight="176.0" prefWidth="570.0" text="Company Information" textFill="IVORY">
                            <font>
-                              <Font size="30.0" />
+                              <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
                         <VBox fx:id="companyInfo" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
@@ -85,7 +85,7 @@
                   </ListView>
                   <Label alignment="CENTER" prefHeight="135.0" prefWidth="1280.0" text="Recent News" textFill="IVORY">
                      <font>
-                        <Font size="30.0" />
+                        <Font name="System Bold" size="30.0" />
                      </font>
                   </Label>
                </children>

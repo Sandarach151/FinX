@@ -10,17 +10,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DBHandler {
-    private static final String USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/users.csv";
-
-    private static final String CURRENT_USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentUser.csv";
-
-    private static final String CURRENT_PRICES_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentPrices.csv";
-
-    private static final String CURRENT_STOCK_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentStock.csv";
-
-//    private static final String USER_FILE_PATH = System.getProperty("user.dir") + "/users.csv";
+//    private static final String USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/users.csv";
 //
-//    private static final String CURRENT_USER_FILE_PATH = System.getProperty("user.dir") + "/currentUser.csv";
+//    private static final String CURRENT_USER_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentUser.csv";
+//
+//    private static final String CURRENT_PRICES_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentPrices.csv";
+//
+//    private static final String CURRENT_STOCK_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/com/example/finx/CSV/currentStock.csv";
+//
+    private static final String USER_FILE_PATH = System.getProperty("user.dir") + "/CSV/users.csv";
+
+    private static final String CURRENT_USER_FILE_PATH = System.getProperty("user.dir") + "/CSV/currentUser.csv";
+
+    private static final String CURRENT_PRICES_FILE_PATH = System.getProperty("user.dir") + "/CSV/currentPrices.csv";
+
+    private static final String CURRENT_STOCK_FILE_PATH = System.getProperty("user.dir") + "/CSV/currentStock.csv";
 
     public static UserDatabase loadUsers() {
         UserDatabase database = new UserDatabase();

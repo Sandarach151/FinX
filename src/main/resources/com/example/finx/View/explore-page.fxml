@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/explorePage-css.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finx.Controller.ExploreController">
+<AnchorPane fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/explorePage-css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finx.Controller.ExploreController">
    <children>
       <BorderPane layoutX="200.0" layoutY="119.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -256,7 +256,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Pane fx:id="AAPLpane211" prefHeight="107.0" prefWidth="195.0" styleClass="stockPane">
+                        <Pane fx:id="AAPLpane211" prefHeight="107.0" prefWidth="195.0" styleClass="cryptoPane">
                            <children>
                               <Label layoutX="13.0" layoutY="7.0" prefHeight="40.0" prefWidth="80.0" text="BTC" textFill="WHITE">
                                  <font>
@@ -285,7 +285,7 @@
                               <Insets bottom="10.0" top="10.0" />
                            </GridPane.margin>
                         </Pane>
-                        <Pane fx:id="AAPLpane2111" prefHeight="107.0" prefWidth="195.0" styleClass="stockPane" GridPane.rowIndex="1">
+                        <Pane fx:id="AAPLpane2111" prefHeight="107.0" prefWidth="195.0" styleClass="cryptoPane" GridPane.rowIndex="1">
                            <children>
                               <Label layoutX="13.0" layoutY="7.0" prefHeight="40.0" prefWidth="80.0" text="ETH" textFill="WHITE">
                                  <font>
@@ -341,7 +341,7 @@
                         <Label fx:id="headlineLabel" alignment="TOP_LEFT" layoutX="216.0" layoutY="5.0" prefHeight="20.0" prefWidth="628.0" textFill="WHITE" wrapText="true" />
                         <Label fx:id="dateLabel" layoutX="216.0" layoutY="49.0" prefHeight="26.0" prefWidth="626.0" textFill="#adadad" />
                         <Hyperlink fx:id="newsURL" layoutX="212.0" layoutY="25.0" prefHeight="23.0" prefWidth="628.0" />
-                        <Label layoutX="-2.0" layoutY="9.0" text="Recent Articles" textFill="#a4a4a4">
+                        <Label layoutX="-2.0" layoutY="9.0" text="Market News" textFill="#a4a4a4">
                            <font>
                               <Font size="30.0" />
                            </font>

@@ -189,12 +189,12 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </GridPane>
-                  <Button fx:id="confirmPurchase" alignment="CENTER" layoutX="110.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#onConfirmPurchaseClicked" prefHeight="51.0" prefWidth="242.0" text="Confirm Purchase" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button fx:id="confirmPurchase" alignment="CENTER" layoutX="110.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#onConfirmPurchaseClicked" prefHeight="51.0" prefWidth="302.0" text="Confirm Transaction" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="22.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="100.0" right="100.0" />
+                        <Insets left="170.0" right="20.0" />
                      </GridPane.margin>
                   </Button>
                     </children>

@@ -32,6 +32,13 @@
     -fx-effect: dropshadow(three-pass-box, rgba(59, 59, 59, 0.8), 10, 0, 0, 0);
 }
 
+.cryptoPane{
+    -fx-background-color: rgb(48, 48, 48);
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 59, 59, 0.8), 10, 0, 0, 0);
+}
+
 #placeOrderBtn{
     -fx-background-color: rgb(65, 105, 225);
     -fx-background-radius: 20px;

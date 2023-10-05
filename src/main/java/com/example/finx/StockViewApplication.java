@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -30,9 +31,11 @@ public class StockViewApplication extends Application {
         logo.setMinSize(1280, 800);
         logo.setContentDisplay(ContentDisplay.CENTER);
         logo.setAlignment(Pos.CENTER);
-        logo.setFont(new Font("Arial", 90));
+        logo.setFont(new Font("Agency FB", 130));
         pane.getChildren().add(logo);
         stage.setScene(new Scene(pane, 1280, 800));
+        stage.setResizable(false);
+        stage.getIcons().add(new Image(LoginApplication.class.getResourceAsStream("Images/Logo.png")));
         stage.show();
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -69,6 +72,8 @@ public class StockViewApplication extends Application {
             Scene scene = task.getValue();
             stage.setTitle("Hello!");
             stage.setScene(scene);
+            stage.setResizable(false);
+            stage.getIcons().add(new Image(LoginApplication.class.getResourceAsStream("Images/Logo.png")));
             stage.show();
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
