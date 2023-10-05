@@ -1,6 +1,5 @@
 package com.example.finx.Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CompanyNewsDatabase {
@@ -19,5 +18,9 @@ public class CompanyNewsDatabase {
 
     public ArrayList<NewsArticle> getNewsDB() {
         return newsDB;
+    }
+
+    public String getSymbol(){
+        return symbol;
     }
 }

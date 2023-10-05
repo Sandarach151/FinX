@@ -4,7 +4,6 @@ import com.example.finx.ExploreApplication;
 import com.example.finx.HistoryApplication;
 import com.example.finx.Model.UserDatabase;
 import com.example.finx.Others.DBHandler;
-import com.example.finx.Others.FinnhubHandler;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

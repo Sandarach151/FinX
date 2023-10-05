@@ -1,7 +1,7 @@
 module com.example.finx {
-    requires javafx.controls;
-    requires javafx.fxml;
-    requires javafx.web;
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
+    requires transitive javafx.web;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;

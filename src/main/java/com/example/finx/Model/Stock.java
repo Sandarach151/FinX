@@ -1,7 +1,5 @@
 package com.example.finx.Model;
 
-import com.example.finx.Controller.LoginController;
-
 import java.time.LocalDateTime;
 
 public class Stock {

@@ -2,7 +2,6 @@ package com.example.finx.Controller;
 
 import com.example.finx.Others.DBHandler;
 import com.example.finx.LoginApplication;
-import com.example.finx.SignupApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -21,8 +20,6 @@ public class SignupController {
     public PasswordField confirmPasswordField;
     @FXML
     private Button signUpBtn;
-
-    private Button loginBtn;
 
     @FXML
     void onSignUpBtnClicked(MouseEvent event) throws IOException {

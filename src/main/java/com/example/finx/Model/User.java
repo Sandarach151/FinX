@@ -1,7 +1,5 @@
 package com.example.finx.Model;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 
 public class User implements Trader{

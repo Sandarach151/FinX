@@ -2,7 +2,6 @@ package com.example.finx.Controller;
 
 import com.example.finx.ExploreApplication;
 import com.example.finx.Model.Company;
-import com.example.finx.Model.CompanyNewsDatabase;
 import com.example.finx.Model.NewsArticle;
 import com.example.finx.Model.StockCandleChart;
 import com.example.finx.Others.DBHandler;
@@ -18,14 +17,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
